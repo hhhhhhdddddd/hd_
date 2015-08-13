@@ -1,0 +1,3 @@
+HD_ = (function() {
+    return {};
+})();
