@@ -85,16 +85,6 @@ HD_.Panel = (function() {
             };
 
             return panel;
-        },
-
-        testFindPanel : function(sourcePanel, targetPanelName) {
-            var panel = sourcePanel.findPanelByName(targetPanelName);
-            if (panel) {
-                alert('FOUND: ' + panel.getName());
-            }
-            else {
-                alert('NOT FOUND: ' + targetPanelName);
-            }
         }
     };
 
