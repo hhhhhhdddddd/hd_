@@ -1,28 +1,8 @@
-HD_.HtmlBuilder = (function() {
+HD_._DomTk = (function() {
 
     return {
-        create : function() {
-            var htmlBuider = Object.create(null);
-
-            return htmlBuider;
-        },
-
         appendClassName : function( domNode, className ) {
             domNode.className = domNode.className + " " + className;
-        },
-
-        buildHeightSpacer : function(height) {
-            var spacer = document.createElement("span");
-            spacer.style.display = "inline-block";
-            spacer.style.height = height + "px";
-            return spacer;
-        },
-
-        buildWidthSpacer : function(width) {
-            var spacer = document.createElement("span");
-            spacer.style.display = "inline-block";
-            spacer.style.width = width + "px";
-            return spacer;
         },
 
         buildDomInput : function(type) {
@@ -38,12 +18,6 @@ HD_.HtmlBuilder = (function() {
                 input.value = data;
             }
             return input;
-        },
-
-        buildButton : function(label) {
-            var button = document.createElement("button");
-            button.innerHTML = label;
-            return button;
         },
 
         buildButtonWithClickHandler : function(label, handler) {

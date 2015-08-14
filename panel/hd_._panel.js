@@ -1,4 +1,4 @@
-HD_.Panel = (function() {
+HD_._Panel = (function() {
 
     var _generatedName = 0;
 
@@ -34,7 +34,7 @@ HD_.Panel = (function() {
             };
 
             panel.buildDomNode = function() {
-                alert("HD_.Panel -  " + this._className + " has no buildDomNode() method.");
+                alert("HD_._Panel -  " + this._className + " has no buildDomNode() method.");
             };
 
             panel.refreshPanel = function() {

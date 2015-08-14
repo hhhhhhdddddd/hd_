@@ -26,7 +26,7 @@ HD_.PanelField = (function() {
 
         number : {
             buildDomElement : function() {
-                return HD_.HtmlBuilder.buildTextInput(5, null);
+                return HD_._DomTk.buildTextInput(5, null);
             },
             findDomValue : function() {
                 return parseInt(_findHtmlInputValue(this.domNode), 10);
@@ -35,7 +35,7 @@ HD_.PanelField = (function() {
 
         fileSelector : {
             buildDomElement : function() {
-                var fileInput = HD_.HtmlBuilder.buildDomInput("file");
+                var fileInput = HD_._DomTk.buildDomInput("file");
                 return fileInput;
             },
             findDomValue : function() {
@@ -64,7 +64,7 @@ HD_.PanelField = (function() {
 
         button : {
             buildDomElement : function() {
-                var button = HD_.HtmlBuilder.buildButtonWithClickHandler(this.innerLabel, this.handler);
+                var button = HD_._DomTk.buildButtonWithClickHandler(this.innerLabel, this.handler);
                 return button;
             },
             findDomValue : function() {
@@ -74,7 +74,7 @@ HD_.PanelField = (function() {
 
         text : {
             buildDomElement : function() {
-                var textArea = HD_.HtmlBuilder.createDomElement("textarea");
+                var textArea = HD_._DomTk.createDomElement("textarea");
                 textArea.setAttribute("rows", this.height);
                 textArea.setAttribute("cols", this.width);
                 return textArea;
@@ -89,7 +89,7 @@ HD_.PanelField = (function() {
 
         string : {
             buildDomElement : function() {
-                var stringInput = HD_.HtmlBuilder.buildTextInput(this.width, this.initValue);
+                var stringInput = HD_._DomTk.buildTextInput(this.width, this.initValue);
                 return stringInput;
             },
             findDomValue : function() {
@@ -115,7 +115,7 @@ HD_.PanelField = (function() {
         */
         create : function(data) {
             var field = Object.create(_types[data.type]);
-            HD_.PanelLeaf.init(field, data.name, "fPanel");
+            HD_._PanelLeaf.init(field, data.name, "fPanel");
             field.name = data.name;
             field.type = data.type;
             field.values = data.values;
@@ -192,18 +192,6 @@ HD_.PanelField = (function() {
 
         buildDomElement : function(field) {
             return _types[type].buildDomElement(type);
-        },
-
-        buildDomInput : function(type, id, size) {
-            var input = document.createElement("input");
-            input.setAttribute("type", type);
-            if (id) {
-                input.setAttribute("id", id);
-            }
-            if (size) {
-                input.setAttribute("size", size);
-            }
-            return input;
         }
     };
 

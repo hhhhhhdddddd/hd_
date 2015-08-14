@@ -1,10 +1,10 @@
-HD_.PanelComposite = (function() {
+HD_._PanelComposite = (function() {
 
     return {
 
         create : function(elements, name, className) {
             var panelComposite = Object.create(null);
-            HD_.Panel.init(panelComposite, name, className);
+            HD_._Panel.init(panelComposite, name, className);
             panelComposite._panelElements = [];
                         
             panelComposite.addPanelElement = function(panelElt) {
@@ -37,7 +37,7 @@ HD_.PanelComposite = (function() {
                 var that = this;
                 that._panelContainer = that.buildPanelEmptyTable();
                 that._panelContainer.setAttribute("name", that._name);
-                HD_.HtmlBuilder.appendClassName(that._panelContainer, that._className);
+                HD_._DomTk.appendClassName(that._panelContainer, that._className);
                 that._panelElements.forEach(function(panelElement, index) {
                     var domNode = panelElement.buildDomNode();
                     domNode.setAttribute("parentPanel", that._name);
@@ -52,11 +52,11 @@ HD_.PanelComposite = (function() {
             };
 
             panelComposite.buildPanelEmptyTable = function() {
-                alert("HD_.PanelComposite - Panel " + this._className + "has no buildPanelEmptyTable() method.");
+                alert("HD_._PanelComposite - Panel " + this._className + "has no buildPanelEmptyTable() method.");
             };
 
             panelComposite.setPanelTableCell = function(index, domNode) {
-                alert("HD_.PanelComposite - Panel " + this._className + "has no setPanelTableCell() method.");
+                alert("HD_._PanelComposite - Panel " + this._className + "has no setPanelTableCell() method.");
             };
 
             return panelComposite;
