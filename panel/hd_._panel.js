@@ -2,6 +2,7 @@ HD_._Panel = (function() {
 
     var _generatedName = 0;
 
+    // todo: plante sur rafraichissement de la racine (mainPanel)
     function _findParentDomNode(panel) {
         return panel._panelContainer.parentElement;
     }
