@@ -23,7 +23,7 @@ HD_.Ajax = (function() {
             httpRequest.send();
         },
 
-        chainRequests : function(requestType, urls, onSuccess, onFinished, onError) {
+        chainRequests : function(requestType, urls, onEachSuccess, onEachFinished, onEachError, onAllFinished) {
 
             function createArrayIterator(anArray) {
                 var iterator = Object.create(null);
@@ -43,18 +43,20 @@ HD_.Ajax = (function() {
 
             function chainRequestsAux() {
                 if (! iterator.hasNext()) {
-                    onFinished();
+                    if (onAllFinished) {
+                        onAllFinished();
+                    }
                     return;
                 }
 
                 var url = iterator.next();
-                HD_.Ajax.makeRequest(requestType, url, function fullOnSuccess(responseText) {
-                    onSuccess(url, responseText);
+                HD_.Ajax.makeRequest(requestType, url, function onSuccess(responseText) {
+                    onEachSuccess(url, responseText);
 
                     chainRequestsAux();
-                }, function onError() {
+                }, function onEachError() {
                     console.log("_chainRequests - Ajax Error: " + url);
-                }, function onFinished() {
+                }, function onEachFinished() {
 
                 });
             }
