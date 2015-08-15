@@ -54,13 +54,18 @@ HD_._DomTk = (function() {
             return table;
         },
 
-        setDomTableCell : function(table, row, column, domNode) {
+        getDomTableCell : function(table, row, column, domNode) {
             var tableChildren = table.children; // [body]
             var tableBody = tableChildren[0];
             var bodyChildren = tableBody.children; // [tr, tr, ...]
             var tableRow = bodyChildren[row];
             var rowChildren = tableRow.children; // [td, td, ...]
             var tableCell = rowChildren[column];
+            return tableCell;
+        },
+
+        setDomTableCell : function(table, row, column, domNode) {
+            var tableCell = this.getDomTableCell(table, row, column);
             this.appendDomElement(tableCell, domNode);
         }
 
