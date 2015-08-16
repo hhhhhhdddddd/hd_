@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Pour conserver l'indentation
+# http://stackoverflow.com/questions/7314044/use-bash-to-read-line-by-line-and-keep-space
+IFS=''
+
 # "Build" et déploie HD_ dans les dossiers en argument en remplaçant les hd_.js existants.
 tempFile="hdtemp"
 hdFile='hd_.js'
