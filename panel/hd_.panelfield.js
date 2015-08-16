@@ -1,7 +1,5 @@
 HD_.PanelField = (function() {
 
-    var index = 0;
-
     function _findHtmlInputValue(node) {
         return node.value;
     }
