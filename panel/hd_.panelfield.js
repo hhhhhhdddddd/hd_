@@ -139,28 +139,12 @@ HD_.PanelField = (function() {
     };
 
     return {
-        /*
-        data === {
-            name : string,
-            type : string,
-            values : array,
-            eventListeners : array,
-            label: string,
-            innerLabel: string,
-            noLabel : boolean
-        }
-        */
         create : function(data) {
             var field = Object.create(_types[data.type]);
             HD_._PanelLeaf.init(field, data.name, "fPanel");
-            field.name = data.name;
-            field.type = data.type;
             field.values = data.values;
             field.eventListeners = data.eventListeners;
-            field.noLabel = data.noLabel;
-            field.label = data.label;
             field.innerLabel = data.innerLabel;
-            field.box = data.box;
             field.handler = data.handler;
             field.height = data.height;
             field.width = data.width;
@@ -197,14 +181,6 @@ HD_.PanelField = (function() {
                 });
             }
 
-            field.getName = function() {
-                return this.name;
-            };
-
-            field.getType = function() {
-                return this.type;
-            };
-
             field.buildPanelDomNode = function() {
                 this._panelContainer = this.domNode;
                 return this._panelContainer;
@@ -214,31 +190,7 @@ HD_.PanelField = (function() {
                 return this.postChangeValue;
             };
 
-            field.getLabel = function() {
-                return "label" + index++;
-            };
-
-            field.hasLabel = function() {
-                return (typeof this.noLabel === "undefined") || (! this.noLabel);
-            };
-
-            field.getBoxName = function() {
-                return this.box;
-            };
-
-            field.hasStyle = function() {
-                return this.style;
-            };
-
             return field;
-        },
-
-        findDomValue : function(type, node) {
-            return _types[type].getNodeValue(node);
-        },
-
-        buildDomElement : function(field) {
-            return _types[type].buildDomElement(type);
         }
     };
 
