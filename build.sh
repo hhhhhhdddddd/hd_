@@ -8,8 +8,8 @@ IFS=''
 tempFile="hdtemp"
 hdFile='hd_.js'
 buildDir='build/'
-buildFile=$buildDir$hdFile
-
+timestamp="// build $(date +%Y%m%d_%H%M%S)"
+buildFile="$buildDir$hdFile"
 echo "$0: building HD_..."
 
 # Création du dossier de build s'il n'existe pas
@@ -18,7 +18,8 @@ mkdir -p $buildDir || exit 1
 # Build... Juste une concaténation pour l'instant.
 find ! -name $hdFile -name "*.js" -exec cat {} \; > $tempFile
 builtLib=$(cat $hdFile $tempFile)
-echo $builtLib > $buildFile
+echo $timestamp > $buildFile
+echo $builtLib >> $buildFile
 
 # Ménage
 rm $tempFile
