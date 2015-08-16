@@ -5,8 +5,6 @@ tempFile="hdtemp"
 hdFile='hd_.js'
 buildDir='build/'
 buildFile=$buildDir$hdFile
-destinationFile="$destinationDir$hdFile"
-destinationFile="$destinationDir"
 
 echo "$0: deploying HD_"
 
