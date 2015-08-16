@@ -19,3 +19,6 @@ mkdir -p $buildDir || exit 1
 find ! -name $hdFile -name "*.js" -exec cat {} \; > $tempFile
 builtLib=$(cat $hdFile $tempFile)
 echo $builtLib > $buildFile
+
+# Ménage
+rm $tempFile
