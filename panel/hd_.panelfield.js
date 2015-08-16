@@ -9,7 +9,7 @@ HD_.PanelField = (function() {
     var _types = {
         list : {
             findDomValue : function() {
-                return this.domNode.options[this.domNode.selectedIndex].value;
+                return this._panelContainer.options[this._panelContainer.selectedIndex].value;
             },
             buildDomElement : function() {
                 var select = document.createElement("select");
@@ -29,7 +29,7 @@ HD_.PanelField = (function() {
                 return HD_._DomTk.buildTextInput(5, null);
             },
             findDomValue : function() {
-                return parseInt(_findHtmlInputValue(this.domNode), 10);
+                return parseInt(_findHtmlInputValue(this._panelContainer), 10);
             }
         },
 
@@ -39,7 +39,7 @@ HD_.PanelField = (function() {
                 return fileInput;
             },
             findDomValue : function() {
-                return _findHtmlInputValue(this.domNode);
+                return _findHtmlInputValue(this._panelContainer);
             },
             //Retrieve the first (and only!) File from the FileList object
             change : function(evt, field) {
@@ -68,7 +68,7 @@ HD_.PanelField = (function() {
                 return button;
             },
             findDomValue : function() {
-                return _findHtmlInputValue(this.domNode);
+                return _findHtmlInputValue(this._panelContainer);
             }
         },
 
@@ -80,10 +80,10 @@ HD_.PanelField = (function() {
                 return textArea;
             },
             findDomValue : function() {
-                return _findHtmlInputValue(this.domNode);
+                return _findHtmlInputValue(this._panelContainer);
             },
             setFieldContent : function(content) {
-                this.domNode.value = content;
+                this._panelContainer.value = content;
             }
         },
 
@@ -93,10 +93,10 @@ HD_.PanelField = (function() {
                 return stringInput;
             },
             findDomValue : function() {
-                return _findHtmlInputValue(this.domNode);
+                return _findHtmlInputValue(this._panelContainer);
             },
             setFieldContent : function(content) {
-                this.domNode.value = content;
+                this._panelContainer.value = content;
             }
         },
 
@@ -119,7 +119,7 @@ HD_.PanelField = (function() {
                 content.split("\n").forEach(function(line) {
                     paragraph = HD_._DomTk.createDomElement("p");
                     paragraph.innerHTML = line;
-                    that.domNode.appendChild(paragraph);
+                    that._panelContainer.appendChild(paragraph);
                 });
             }
         },
@@ -130,10 +130,10 @@ HD_.PanelField = (function() {
                 return img;
             },
             findDomValue : function() {
-                return _findHtmlInputValue(this.domNode);
+                return _findHtmlInputValue(this._panelContainer);
             },
             setFieldContent : function(content) {
-                this.domNode.setAttribute('src', content);
+                this._panelContainer.setAttribute('src', content);
             }
         }
     };
@@ -150,6 +150,7 @@ HD_.PanelField = (function() {
             field.width = data.width;
             field.initValue = data.initValue;
             field.style = data.style;
+            field.type = data.type;
             field.parentContainerStyle = {};
 
             if (field.setParentStyle) {
@@ -160,30 +161,31 @@ HD_.PanelField = (function() {
                 return this.values;
             };
 
-            // Nécessite getValues()
-            field.domNode = field.buildDomElement();
-
-            if (data.initValue) {
-                field.setFieldContent(data.initValue);
-            }
-
-            // Nécessite buildDomElement()
-            if (data.eventListeners) {
-                data.eventListeners.forEach(function(eventListener) {
-                    var listener = _types[data.type][eventListener.name];
-                    if (listener) {
-                        field.domNode.addEventListener(eventListener.name, function(evt) {
-                            listener(evt, field);
-                            eventListener.handler(evt);
-                        },
-                        false);
-                    }
-                });
-            }
-
             field.buildPanelDomNode = function() {
-                this._panelContainer = this.domNode;
-                return this._panelContainer;
+                var that = this;
+
+                that._panelContainer = that.buildDomElement();
+
+                if (data.initValue) {
+                    that.setFieldContent(that.initValue);
+                }
+
+                // Nécessite buildDomElement()
+                if (that.eventListeners) {
+                    that.eventListeners.forEach(function(eventListener) {
+                        var listener = _types[that.type][eventListener.name];
+                        if (listener) {
+                            that._panelContainer.addEventListener(eventListener.name, function(evt) {
+                                listener(evt, that);
+                                eventListener.handler(evt);
+                            },
+                            false);
+                        }
+                    });
+                }
+
+                
+                return that._panelContainer;
             };
 
             field.getPostChangeValue = function() {
