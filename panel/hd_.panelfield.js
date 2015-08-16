@@ -12,7 +12,7 @@ HD_.PanelField = (function() {
             buildDomElement : function() {
                 var select = document.createElement("select");
                 var option = null;
-                this.getValues().forEach(function(value) {
+                this.values.forEach(function(value) {
                     option = document.createElement("option");
                     option.setAttribute("value", value.value);
                     option.innerHTML = value.label;
@@ -155,10 +155,6 @@ HD_.PanelField = (function() {
                 field.setParentStyle();
             }
 
-            field.getValues = function() {
-                return this.values;
-            };
-
             field.buildPanelDomNode = function() {
                 var that = this;
 
@@ -168,7 +164,6 @@ HD_.PanelField = (function() {
                     that.setFieldContent(that.initValue);
                 }
 
-                // Nécessite buildDomElement()
                 if (that.eventListeners) {
                     that.eventListeners.forEach(function(eventListener) {
                         var listener = _types[that.type][eventListener.name];
@@ -184,10 +179,6 @@ HD_.PanelField = (function() {
 
                 
                 return that._panelContainer;
-            };
-
-            field.getPostChangeValue = function() {
-                return this.postChangeValue;
             };
 
             return field;
