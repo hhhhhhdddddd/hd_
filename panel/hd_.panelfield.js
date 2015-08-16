@@ -98,6 +98,38 @@ HD_.PanelField = (function() {
             setFieldContent : function(content) {
                 this.domNode.value = content;
             }
+        },
+
+        textDisplay : {
+            buildDomElement : function() {
+                var div = HD_._DomTk.createDomElement("div");
+                return div;
+            },
+            findDomValue : function() {
+                return "textDisplay: findDomValue todo";
+            },
+            setFieldContent : function(content) {
+                var that = this;
+                var paragraph = null;
+                content.split("\n").forEach(function(line) {
+                    paragraph = HD_._DomTk.createDomElement("p");
+                    paragraph.innerHTML = line;
+                    that.domNode.appendChild(paragraph);
+                });
+            }
+        },
+
+        image : {
+            buildDomElement : function() {
+                var img = HD_._DomTk.createDomElement("img");
+                return img;
+            },
+            findDomValue : function() {
+                return _findHtmlInputValue(this.domNode);
+            },
+            setFieldContent : function(content) {
+                this.domNode.setAttribute('src', content);
+            }
         }
     };
 
