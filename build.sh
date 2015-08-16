@@ -10,7 +10,7 @@ hdFile='hd_.js'
 buildDir='build/'
 buildFile=$buildDir$hdFile
 
-echo "$0: deploying HD_"
+echo "$0: building HD_..."
 
 # Création du dossier de build s'il n'existe pas
 mkdir -p $buildDir || exit 1
