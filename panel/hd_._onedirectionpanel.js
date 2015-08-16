@@ -46,6 +46,10 @@ HD_._OneDirectionPanel = (function() {
                 HD_._DomTk.setDomTableCell(this._panelContainer,this.getRowIndex(index) , this.getColumnIndex(index), domNode);
             };
 
+            oneDirPanel.getPanelTableCell = function(index) {
+                return HD_._DomTk.getDomTableCell(this._panelContainer,this.getRowIndex(index) , this.getColumnIndex(index));
+            };
+
             return oneDirPanel;
         }
     };

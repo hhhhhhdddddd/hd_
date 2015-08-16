@@ -105,6 +105,11 @@ HD_.PanelField = (function() {
                 var div = HD_._DomTk.createDomElement("div");
                 return div;
             },
+            setParentStyle : function() {
+                if ( this.style.verticalAlign ) {
+                    this.parentContainerStyle['verticalAlign'] = "top";
+                }
+            },
             findDomValue : function() {
                 return "textDisplay: findDomValue todo";
             },
@@ -160,6 +165,12 @@ HD_.PanelField = (function() {
             field.height = data.height;
             field.width = data.width;
             field.initValue = data.initValue;
+            field.style = data.style;
+            field.parentContainerStyle = {};
+
+            if (field.setParentStyle) {
+                field.setParentStyle();
+            }
 
             field.getValues = function() {
                 return this.values;
@@ -213,6 +224,10 @@ HD_.PanelField = (function() {
 
             field.getBoxName = function() {
                 return this.box;
+            };
+
+            field.hasStyle = function() {
+                return this.style;
             };
 
             return field;

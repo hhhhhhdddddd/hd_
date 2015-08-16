@@ -37,6 +37,12 @@ HD_._DomTk = (function() {
             parent.appendChild(child);
         },
 
+        applyStyle : function(domNode, style) {
+            for (var styleName in style) {
+                domNode.style[styleName] = style[styleName];
+            }
+        },
+
         // Tableaux
 
         buildEmptyTable : function(rows, columns) {

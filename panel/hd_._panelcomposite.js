@@ -46,10 +46,20 @@ HD_._PanelComposite = (function() {
                 that._panelContainer.setAttribute("name", that._name);
                 HD_._DomTk.appendClassName(that._panelContainer, that._className);
                 that._panelElements.forEach(function(panelElement, index) {
-                    var domNode = panelElement.buildPanelDomNode();
+                    var domNode = panelElement.buildDomNode();
                     domNode.setAttribute("parentPanel", that._name);
                     domNode.setAttribute("index", index);
-                    that.setPanelTableCell(index, domNode);
+                    var tableCell = that.getPanelTableCell(index);
+
+                    // On ajoute les styles que l'enfant impose à son container dom parent.
+                    // NB. Pas à son _Panel parent mais à son container dom parent.
+                    if (panelElement.parentContainerStyle) {
+                        for (var styleName in panelElement.parentContainerStyle) {
+                            HD_._DomTk.applyStyle(tableCell, panelElement.parentContainerStyle);
+                        }
+                    }
+
+                    tableCell.appendChild(domNode);
                 });
                 return that._panelContainer;
             };
@@ -64,6 +74,10 @@ HD_._PanelComposite = (function() {
 
             panelComposite.setPanelTableCell = function(index, domNode) {
                 alert("HD_._PanelComposite - Panel " + this._className + "has no setPanelTableCell() method.");
+            };
+
+            panelComposite.getPanelTableCell = function(index) {
+                alert("HD_._PanelComposite - Panel " + this._className + "has no getPanelTableCell() method.");
             };
 
             return panelComposite;
