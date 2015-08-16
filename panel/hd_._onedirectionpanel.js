@@ -1,3 +1,4 @@
+// Un panneau à une direction horizontale ou verticale
 HD_._OneDirectionPanel = (function() {
 
     return {
