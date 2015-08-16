@@ -66,7 +66,7 @@ HD_.PanelField = (function() {
                 return button;
             },
             findDomValue : function() {
-                return _findHtmlInputValue(this._panelContainer);
+                return null;
             }
         },
 
@@ -128,7 +128,7 @@ HD_.PanelField = (function() {
                 return img;
             },
             findDomValue : function() {
-                return _findHtmlInputValue(this._panelContainer);
+                return null;
             },
             setFieldContent : function(content) {
                 this._panelContainer.setAttribute('src', content);
