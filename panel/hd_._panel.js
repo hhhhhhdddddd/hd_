@@ -15,6 +15,10 @@ HD_._Panel = (function() {
             panel._className = className;
             panel._parent = null;
 
+            panel.buildPanelDomNode = function() {
+                alert("HD_._Panel -  " + this._className + " has no buildPanelDomNode() method.");
+            };
+
             panel.setPanelParent = function(panelParent) {
                 this._parent = panelParent;
             };
@@ -35,13 +39,13 @@ HD_._Panel = (function() {
             };
 
             panel.buildDomNode = function() {
-                alert("HD_._Panel -  " + this._className + " has no buildDomNode() method.");
+                return this.buildPanelDomNode();
             };
 
             panel.refreshPanel = function() {
                 var parent = _findParentDomNode(this);
                 parent.removeChild(this._panelContainer);
-                this._panelContainer = this.buildDomNode();
+                this._panelContainer = this.buildPanelDomNode();
                 parent.appendChild(this._panelContainer);
             };
 

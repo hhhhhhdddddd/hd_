@@ -10,6 +10,7 @@ HD_._PanelComposite = (function() {
             panelComposite.addPanelElement = function(panelElt) {
                 panelElt.setPanelParent(this);
                 this._panelElements.push(panelElt);
+                return panelElt;
             };
 
             // Nécessite addPanelElement
@@ -18,6 +19,12 @@ HD_._PanelComposite = (function() {
                     panelComposite.addPanelElement(elt);
                 });
             }
+
+            panelComposite.addAndShow = function(panelElt) {
+                this.addPanelElement(panelElt);
+                var eltNode = panelElt.buildPanelDomNode();
+                this._panelContainer.appendChild(eltNode);
+            };
 
             panelComposite.eachPanelElement = function(fun) {
                 this._panelElements.forEach(function(panelElt) {
@@ -33,13 +40,13 @@ HD_._PanelComposite = (function() {
                 this._panelElements = [];
             };
 
-            panelComposite.buildDomNode = function() {
+            panelComposite.buildPanelDomNode = function() {
                 var that = this;
                 that._panelContainer = that.buildPanelEmptyTable();
                 that._panelContainer.setAttribute("name", that._name);
                 HD_._DomTk.appendClassName(that._panelContainer, that._className);
                 that._panelElements.forEach(function(panelElement, index) {
-                    var domNode = panelElement.buildDomNode();
+                    var domNode = panelElement.buildPanelDomNode();
                     domNode.setAttribute("parentPanel", that._name);
                     domNode.setAttribute("index", index);
                     that.setPanelTableCell(index, domNode);

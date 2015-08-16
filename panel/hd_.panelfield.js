@@ -194,7 +194,7 @@ HD_.PanelField = (function() {
                 return this.type;
             };
 
-            field.buildDomNode = function() {
+            field.buildPanelDomNode = function() {
                 this._panelContainer = this.domNode;
                 return this._panelContainer;
             };
