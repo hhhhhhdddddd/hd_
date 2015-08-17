@@ -39,12 +39,15 @@ HD_._Panel = (function() {
                 }
             };
 
+            // todo: remonter l'initialisation de panel._panelContainer ici
             panel.buildDomNode = function() {
-                return this.buildPanelDomNode();
+                var domNode = this.buildPanelDomNode();
+                this.applyPanelStyle(domNode);
+                return domNode;
             };
 
-            panel.applyPanelStyle = function() {
-                this.applyPanelTreeStyle();
+            panel.applyPanelStyle = function(domNode) {
+                this.applyPanelTreeStyle(domNode);
                 if (this._style) {
                     HD_._DomTk.applyStyle(domNode, this._style);
                 }

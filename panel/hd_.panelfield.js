@@ -139,7 +139,7 @@ HD_.PanelField = (function() {
     return {
         create : function(data) {
             var field = Object.create(_types[data.type]);
-            HD_._PanelLeaf.init(field, data.name, "fPanel");
+            HD_._PanelLeaf.init(field, data.name, "fPanel", data.style);
             field.values = data.values;
             field.eventListeners = data.eventListeners;
             field.innerLabel = data.innerLabel;

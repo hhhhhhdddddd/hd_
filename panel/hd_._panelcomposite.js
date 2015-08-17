@@ -2,9 +2,9 @@ HD_._PanelComposite = (function() {
 
     return {
 
-        create : function(elements, name, className) {
+        create : function(elements, name, className, style) {
             var panelComposite = Object.create(null);
-            HD_._Panel.init(panelComposite, name, className);
+            HD_._Panel.init(panelComposite, name, className, style);
 
             panelComposite._panelElements = [];
             panelComposite._cellsStyle = [];
@@ -22,7 +22,18 @@ HD_._PanelComposite = (function() {
             };
 
             panelComposite.addPanelElement = function(panelElt) {
+
+                function addCellStyle(panelComposite, cellStyle, cellIndex) {
+                    if (cellStyle) {
+                        panelComposite._cellsStyle.push({
+                            cellNumber: cellIndex,
+                            style: cellStyle
+                        });
+                    }
+                }
+
                 panelElt.setPanelParent(this);
+                addCellStyle(this, panelElt.parentContainerStyle, this._panelElements.length);
                 this._panelElements.push(panelElt);
                 return panelElt;
             };
@@ -33,6 +44,17 @@ HD_._PanelComposite = (function() {
                     panelComposite.addPanelElement(elt);
                 });
             }
+
+            panelComposite.applyPanelTreeStyle = function(domNode) {
+                var that = this;
+
+                // On ajoute les styles que l'enfant impose à son container dom parent.
+                // NB. Pas à son _Panel parent mais à son container dom parent.
+                panelComposite._cellsStyle.forEach(function(cellStyleData) {
+                    var tableCell = that.getPanelTableCell(cellStyleData.cellNumber);
+                    HD_._DomTk.applyStyle(tableCell, cellStyleData.style);
+                });
+            };
 
             panelComposite.addAndShow = function(panelElt) {
                 this.addPanelElement(panelElt);
@@ -63,15 +85,6 @@ HD_._PanelComposite = (function() {
                     var domNode = panelElement.buildDomNode();
                     domNode.setAttribute("parentPanel", that._name);
                     var tableCell = that.getPanelTableCell(index);
-
-                    // On ajoute les styles que l'enfant impose à son container dom parent.
-                    // NB. Pas à son _Panel parent mais à son container dom parent.
-                    if (panelElement.parentContainerStyle) {
-                        for (var styleName in panelElement.parentContainerStyle) {
-                            HD_._DomTk.applyStyle(tableCell, panelElement.parentContainerStyle);
-                        }
-                    }
-
                     tableCell.appendChild(domNode);
                 });
                 return that._panelContainer;

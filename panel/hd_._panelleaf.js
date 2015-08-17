@@ -9,6 +9,10 @@ HD_._PanelLeaf = (function() {
                 // Rien de plus à faire que ce qui est fait dans panel.findPanel()
             };
 
+            panelLeaf.applyPanelTreeStyle = function(domNode) {
+                // Rien de plus à faire que ce qui est fait dans panel.findPanel()
+            };
+
             return panelLeaf;
         }
     };

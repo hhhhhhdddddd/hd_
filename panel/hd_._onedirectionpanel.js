@@ -3,8 +3,8 @@ HD_._OneDirectionPanel = (function() {
 
     return {
 
-        create : function(direction, elements, name) {
-            var oneDirPanel = HD_._PanelComposite.create(elements, name, direction + 'Panel');
+        create : function(direction, elements, name, style) {
+            var oneDirPanel = HD_._PanelComposite.create(elements, name, direction + 'Panel', style);
 
             if (direction === "horizontal") {
                 oneDirPanel.getNumberOfRows = function(index) {
