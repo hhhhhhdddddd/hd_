@@ -72,7 +72,6 @@ HD_._Panel = (function() {
             };
 
             // Retourne le panneau vérifiant le prédicat passé en argument.
-            // NB. fonction récursive
             panel.findPanel = function(predicat) {
                 if (predicat(this)) {
                     return this;
