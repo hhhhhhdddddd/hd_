@@ -148,7 +148,6 @@ HD_.PanelField = (function() {
             field.height = data.height;
             field.width = data.width;
             field.initValue = data.initValue;
-            // field.style = data.style;
             field.type = data.type;
             field.parentContainerStyle = {};
 
