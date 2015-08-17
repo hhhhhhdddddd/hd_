@@ -1,5 +1,4 @@
 // Un panneau à une direction horizontale ou verticale
-// todo: renommer en StackPanel
 HD_._PanelStack = (function() {
 
     return {
