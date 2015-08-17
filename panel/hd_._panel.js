@@ -40,11 +40,14 @@ HD_._Panel = (function() {
             };
 
             panel.buildDomNode = function() {
-                var domNode = this.buildPanelDomNode();
+                return this.buildPanelDomNode();
+            };
+
+            panel.applyPanelStyle = function() {
+                this.applyPanelTreeStyle();
                 if (this._style) {
                     HD_._DomTk.applyStyle(domNode, this._style);
                 }
-                return domNode;
             };
 
             panel.refreshPanel = function() {
