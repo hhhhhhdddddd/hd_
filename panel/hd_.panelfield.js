@@ -7,7 +7,7 @@ HD_.PanelField = (function() {
     var _types = {
         list : {
             findDomValue : function() {
-                return this._panelContainer.options[this._panelContainer.selectedIndex].value;
+                return this._panelDomNode.options[this._panelDomNode.selectedIndex].value;
             },
             buildDomElement : function() {
                 var select = document.createElement("select");
@@ -27,7 +27,7 @@ HD_.PanelField = (function() {
                 return HD_._DomTk.buildTextInput(5, null);
             },
             findDomValue : function() {
-                return parseInt(_findHtmlInputValue(this._panelContainer), 10);
+                return parseInt(_findHtmlInputValue(this._panelDomNode), 10);
             }
         },
 
@@ -37,7 +37,7 @@ HD_.PanelField = (function() {
                 return fileInput;
             },
             findDomValue : function() {
-                return _findHtmlInputValue(this._panelContainer);
+                return _findHtmlInputValue(this._panelDomNode);
             },
             //Retrieve the first (and only!) File from the FileList object
             change : function(evt, field) {
@@ -78,10 +78,10 @@ HD_.PanelField = (function() {
                 return textArea;
             },
             findDomValue : function() {
-                return _findHtmlInputValue(this._panelContainer);
+                return _findHtmlInputValue(this._panelDomNode);
             },
             setFieldContent : function(content) {
-                this._panelContainer.value = content;
+                this._panelDomNode.value = content;
             }
         },
 
@@ -91,10 +91,10 @@ HD_.PanelField = (function() {
                 return stringInput;
             },
             findDomValue : function() {
-                return _findHtmlInputValue(this._panelContainer);
+                return _findHtmlInputValue(this._panelDomNode);
             },
             setFieldContent : function(content) {
-                this._panelContainer.value = content;
+                this._panelDomNode.value = content;
             }
         },
 
@@ -117,7 +117,7 @@ HD_.PanelField = (function() {
                 content.split("\n").forEach(function(line) {
                     paragraph = HD_._DomTk.createDomElement("p");
                     paragraph.innerHTML = line;
-                    that._panelContainer.appendChild(paragraph);
+                    that._panelDomNode.appendChild(paragraph);
                 });
             }
         },
@@ -131,7 +131,7 @@ HD_.PanelField = (function() {
                 return null;
             },
             setFieldContent : function(content) {
-                this._panelContainer.setAttribute('src', content);
+                this._panelDomNode.setAttribute('src', content);
             }
         }
     };
@@ -159,7 +159,7 @@ HD_.PanelField = (function() {
             field.buildPanelDomNode = function() {
                 var that = this;
 
-                that._panelContainer = that.buildDomElement();
+                that._panelDomNode = that.buildDomElement();
 
                 if (data.initValue) {
                     that.setFieldContent(that.initValue);
@@ -169,7 +169,7 @@ HD_.PanelField = (function() {
                     that.eventListeners.forEach(function(eventListener) {
                         var listener = _types[that.type][eventListener.name];
                         if (listener) {
-                            that._panelContainer.addEventListener(eventListener.name, function(evt) {
+                            that._panelDomNode.addEventListener(eventListener.name, function(evt) {
                                 listener(evt, that);
                                 eventListener.handler(evt);
                             },
@@ -179,7 +179,7 @@ HD_.PanelField = (function() {
                 }
 
                 
-                return that._panelContainer;
+                return that._panelDomNode;
             };
 
             field.findVerifyingPanel = function(predicat) {

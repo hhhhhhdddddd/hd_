@@ -4,13 +4,13 @@ HD_._Panel = (function() {
 
     // todo: plante sur rafraichissement de la racine (mainPanel)
     function _findParentDomNode(panel) {
-        return panel._panelContainer.parentElement;
+        return panel._panelDomNode.parentElement;
     }
 
     return {
 
         init : function(panel, name, className, style) {
-            panel._panelContainer = null;
+            panel._panelDomNode = null;
             panel._name = name ? name : "";
             panel._className = className;
             panel._parent = null;
@@ -39,7 +39,7 @@ HD_._Panel = (function() {
                 }
             };
 
-            // todo: remonter l'initialisation de panel._panelContainer ici
+            // todo: remonter l'initialisation de panel._panelDomNode ici
             panel.buildDomNode = function() {
                 var domNode = this.buildPanelDomNode();
                 this.applyPanelStyle(domNode);
@@ -55,9 +55,9 @@ HD_._Panel = (function() {
 
             panel.refreshPanel = function() {
                 var parent = _findParentDomNode(this);
-                parent.removeChild(this._panelContainer);
-                this._panelContainer = this.buildPanelDomNode();
-                parent.appendChild(this._panelContainer);
+                parent.removeChild(this._panelDomNode);
+                this._panelDomNode = this.buildPanelDomNode();
+                parent.appendChild(this._panelDomNode);
             };
 
             panel.getName = function() {
@@ -65,16 +65,16 @@ HD_._Panel = (function() {
             };
 
             panel.show = function() {
-                this._panelContainer.style.display = "block";
+                this._panelDomNode.style.display = "block";
             };
 
             panel.hide = function() {
-                this._panelContainer.style.display = "none";
+                this._panelDomNode.style.display = "none";
             };
 
             panel.removePanel = function() {
                 var parent = _findParentDomNode(this);
-                parent.removeChild(this._panelContainer);
+                parent.removeChild(this._panelDomNode);
             };
 
             // Retourne le panneau vérifiant le prédicat passé en argument.
