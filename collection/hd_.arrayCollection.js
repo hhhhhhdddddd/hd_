@@ -10,6 +10,7 @@ HD_.ArrayCollection = (function() {
 
             collection.addElement = function(element) {
                 this._elements.push(element);
+                return element;
             };
 
             collection.eachElement = function(fun) {
