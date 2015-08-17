@@ -104,7 +104,7 @@ HD_.PanelField = (function() {
                 return div;
             },
             setParentStyle : function() {
-                if ( this.style.verticalAlign ) {
+                if ( this._style.verticalAlign ) {
                     this.parentContainerStyle['verticalAlign'] = "top";
                 }
             },
@@ -147,7 +147,7 @@ HD_.PanelField = (function() {
             field.height = data.height;
             field.width = data.width;
             field.initValue = data.initValue;
-            field.style = data.style;
+            // field.style = data.style;
             field.type = data.type;
             field.parentContainerStyle = {};
 

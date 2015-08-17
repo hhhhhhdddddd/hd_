@@ -9,12 +9,12 @@ HD_._Panel = (function() {
 
     return {
 
-        init : function(panel, name, className) {
+        init : function(panel, name, className, style) {
             panel._panelContainer = null;
             panel._name = name ? name : "";
             panel._className = className;
             panel._parent = null;
-            panel._style = {};
+            panel._style = style;
 
             panel.buildPanelDomNode = function() {
                 alert("HD_._Panel -  " + this._className + " has no buildPanelDomNode() method.");

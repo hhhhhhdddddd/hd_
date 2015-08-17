@@ -2,8 +2,8 @@ HD_._PanelLeaf = (function() {
 
     return {
 
-        init : function(panelLeaf, name, className) {
-            HD_._Panel.init(panelLeaf, name, className);
+        init : function(panelLeaf, name, className, style) {
+            HD_._Panel.init(panelLeaf, name, className, style);
 
             panelLeaf.findVerifyingPanel = function(predicat) {
                 // Rien de plus à faire que ce qui est fait dans panel.findPanel()
