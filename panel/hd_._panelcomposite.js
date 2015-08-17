@@ -62,7 +62,6 @@ HD_._PanelComposite = (function() {
                 that._panelElements.forEach(function(panelElement, index) {
                     var domNode = panelElement.buildDomNode();
                     domNode.setAttribute("parentPanel", that._name);
-                    domNode.setAttribute("index", index);
                     var tableCell = that.getPanelTableCell(index);
 
                     // On ajoute les styles que l'enfant impose à son container dom parent.
