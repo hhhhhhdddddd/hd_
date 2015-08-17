@@ -39,7 +39,6 @@ HD_._Panel = (function() {
                 }
             };
 
-            // todo: remonter l'initialisation de panel._panelDomNode ici
             panel.buildDomNode = function() {
                 var domNode = this.buildPanelDomNode();
                 this.applyPanelStyle(domNode);
