@@ -139,7 +139,8 @@ HD_.PanelField = (function() {
     return {
         create : function(data) {
             var field = Object.create(_types[data.type]);
-            HD_._PanelLeaf.init(field, data.name, "fPanel", data.style);
+            HD_._Panel.init(field, data.name, "fieldPanel", data.style);
+
             field.values = data.values;
             field.eventListeners = data.eventListeners;
             field.innerLabel = data.innerLabel;
@@ -179,6 +180,14 @@ HD_.PanelField = (function() {
 
                 
                 return that._panelContainer;
+            };
+
+            field.findVerifyingPanel = function(predicat) {
+                // Rien de plus à faire que ce qui est fait dans panel.findPanel()
+            };
+
+            field.applyPanelTreeStyle = function(domNode) {
+                // Rien de plus à faire que ce qui est fait dans panel.findPanel()
             };
 
             return field;
