@@ -5,21 +5,27 @@
 IFS=''
 
 # "Build" et déploie HD_ dans les dossiers en argument en remplaçant les hd_.js existants.
-tempFile="hdtemp"
-hdFile='hd_.js'
+cd ".."
+
 buildDir='build/'
-timestamp="// build $(date +%Y%m%d_%H%M%S)"
-buildFile="$buildDir$hdFile"
+tempFileName="hdtemp"
+tempFilePath="$buildDir$tempFileName"
+srcDir="js/src/"
+hdFileName='hd_.js'
+buildFilePath="$buildDir$hdFileName"
+
 echo "$0: building HD_..."
 
 # Création du dossier de build s'il n'existe pas
 mkdir -p $buildDir || exit 1
 
 # Build... Juste une concaténation pour l'instant.
-find ! -name $hdFile -name "*.js" -exec cat {} \; > $tempFile
-builtLib=$(cat $hdFile $tempFile)
-echo $timestamp > $buildFile
-echo $builtLib >> $buildFile
+find ! -name $hdFileName -name "*.js" -exec cat {} \; > $tempFilePath
+builtLib=$(cat $srcDir$hdFileName $tempFilePath)
+
+timestamp="// build $(date +%Y%m%d_%H%M%S)"
+echo $timestamp > $buildFilePath
+echo $builtLib >> $buildFilePath
 
 # Ménage
-rm $tempFile
+rm $tempFilePath
