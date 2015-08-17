@@ -5,8 +5,22 @@ HD_._PanelComposite = (function() {
         create : function(elements, name, className) {
             var panelComposite = Object.create(null);
             HD_._Panel.init(panelComposite, name, className);
+
             panelComposite._panelElements = [];
-                        
+            panelComposite._cellsStyle = [];
+            
+            panelComposite.buildPanelEmptyTable = function() {
+                alert("HD_._PanelComposite - Panel " + this._className + "has no buildPanelEmptyTable() method.");
+            };
+
+            panelComposite.setPanelTableCell = function(index, domNode) {
+                alert("HD_._PanelComposite - Panel " + this._className + "has no setPanelTableCell() method.");
+            };
+
+            panelComposite.getPanelTableCell = function(index) {
+                alert("HD_._PanelComposite - Panel " + this._className + "has no getPanelTableCell() method.");
+            };
+
             panelComposite.addPanelElement = function(panelElt) {
                 panelElt.setPanelParent(this);
                 this._panelElements.push(panelElt);
@@ -66,18 +80,6 @@ HD_._PanelComposite = (function() {
 
             panelComposite.getNumberOfElements = function() {
                 return this._panelElements.length;
-            };
-
-            panelComposite.buildPanelEmptyTable = function() {
-                alert("HD_._PanelComposite - Panel " + this._className + "has no buildPanelEmptyTable() method.");
-            };
-
-            panelComposite.setPanelTableCell = function(index, domNode) {
-                alert("HD_._PanelComposite - Panel " + this._className + "has no setPanelTableCell() method.");
-            };
-
-            panelComposite.getPanelTableCell = function(index) {
-                alert("HD_._PanelComposite - Panel " + this._className + "has no getPanelTableCell() method.");
             };
 
             panelComposite.findVerifyingPanel = function(predicat) {
