@@ -1,52 +1,52 @@
 // Un panneau à une direction horizontale ou verticale
-HD_._PanelStack = (function() {
+HD_._StackPanel = (function() {
 
     return {
 
         create : function(direction, elements, name, style) {
-            var panelStack = Object.create(null);
-            HD_._Panel.init(panelStack, name, direction + 'Panel', style);
+            var stackPanel = Object.create(null);
+            HD_._Panel.init(stackPanel, name, direction + 'Panel', style);
 
-            panelStack._panelElements = [];
-            panelStack._cellsStyle = [];
+            stackPanel._panelElements = [];
+            stackPanel._cellsStyle = [];
 
             if (direction === "horizontal") {
-                panelStack.getNumberOfRows = function(index) {
+                stackPanel.getNumberOfRows = function(index) {
                     return 1;
                 };
-                panelStack.getNumberOfColumns = function(index) {
+                stackPanel.getNumberOfColumns = function(index) {
                     return this.getNumberOfElements();
                 };
-                panelStack.getRowIndex = function(index) {
+                stackPanel.getRowIndex = function(index) {
                     return 0;
                 };
-                panelStack.getColumnIndex = function(index) {
+                stackPanel.getColumnIndex = function(index) {
                     return index;
                 };
             }
             else if (direction === "vertical") {
-                panelStack.getNumberOfRows = function(index) {
+                stackPanel.getNumberOfRows = function(index) {
                     return this.getNumberOfElements();
                 };
-                panelStack.getNumberOfColumns = function(index) {
+                stackPanel.getNumberOfColumns = function(index) {
                     return 1;
                 };
-                panelStack.getRowIndex = function(index) {
+                stackPanel.getRowIndex = function(index) {
                     return index;
                 };
-                panelStack.getColumnIndex = function(index) {
+                stackPanel.getColumnIndex = function(index) {
                     return 0;
                 };
             }
             else {
-                alert("HD_._PanelStack.create: direction '" + direction + "' not defined");
+                alert("HD_._StackPanel.create: direction '" + direction + "' not defined");
             }
             
-            panelStack.addPanelElement = function(panelElt) {
+            stackPanel.addPanelElement = function(panelElt) {
 
-                function addCellStyle(panelStack, cellStyle, cellIndex) {
+                function addCellStyle(stackPanel, cellStyle, cellIndex) {
                     if (cellStyle) {
-                        panelStack._cellsStyle.push({
+                        stackPanel._cellsStyle.push({
                             cellNumber: cellIndex,
                             style: cellStyle
                         });
@@ -62,42 +62,42 @@ HD_._PanelStack = (function() {
             // Nécessite addPanelElement
             if (elements) {
                 elements.forEach(function(elt) {
-                    panelStack.addPanelElement(elt);
+                    stackPanel.addPanelElement(elt);
                 });
             }
 
-            panelStack.applyPanelTreeStyle = function(domNode) {
+            stackPanel.applyPanelTreeStyle = function(domNode) {
                 var that = this;
 
                 // On ajoute les styles que l'enfant impose à son container dom parent.
                 // NB. Pas à son _Panel parent mais à son container dom parent.
-                panelStack._cellsStyle.forEach(function(cellStyleData) {
+                stackPanel._cellsStyle.forEach(function(cellStyleData) {
                     var tableCell = that.getPanelTableCell(cellStyleData.cellNumber);
                     HD_._DomTk.applyStyle(tableCell, cellStyleData.style);
                 });
             };
 
-            panelStack.addAndShow = function(panelElt) {
+            stackPanel.addAndShow = function(panelElt) {
                 this.addPanelElement(panelElt);
                 var eltNode = panelElt.buildPanelDomNode();
                 this._panelDomNode.appendChild(eltNode);
             };
 
-            panelStack.eachPanelElement = function(fun) {
+            stackPanel.eachPanelElement = function(fun) {
                 this._panelElements.forEach(function(panelElt) {
                     fun(panelElt);
                 });
             };
 
-            panelStack.getChildPanel = function(i) {
+            stackPanel.getChildPanel = function(i) {
                 return this._panelElements[i];
             };
 
-            panelStack.clearPanelElements = function() {
+            stackPanel.clearPanelElements = function() {
                 this._panelElements = [];
             };
 
-            panelStack.buildPanelDomNode = function() {
+            stackPanel.buildPanelDomNode = function() {
                 var that = this;
                 that._panelDomNode = that.buildPanelEmptyTable();
                 that._panelDomNode.setAttribute("name", that._name);
@@ -111,11 +111,11 @@ HD_._PanelStack = (function() {
                 return that._panelDomNode;
             };
 
-            panelStack.getNumberOfElements = function() {
+            stackPanel.getNumberOfElements = function() {
                 return this._panelElements.length;
             };
 
-            panelStack.findVerifyingPanel = function(predicat) {
+            stackPanel.findVerifyingPanel = function(predicat) {
                 for (var i = 0; i < this._panelElements.length; i++) {
                     var element = this._panelElements[i];
                     var res = element.findPanel(predicat);
@@ -125,19 +125,19 @@ HD_._PanelStack = (function() {
                 }
             };
 
-            panelStack.buildPanelEmptyTable = function() {
+            stackPanel.buildPanelEmptyTable = function() {
                 return HD_._DomTk.buildEmptyTable(this.getNumberOfRows(), this.getNumberOfColumns());
             };
 
-            panelStack.setPanelTableCell = function(index, domNode) {
+            stackPanel.setPanelTableCell = function(index, domNode) {
                 HD_._DomTk.setDomTableCell(this._panelDomNode,this.getRowIndex(index) , this.getColumnIndex(index), domNode);
             };
 
-            panelStack.getPanelTableCell = function(index) {
+            stackPanel.getPanelTableCell = function(index) {
                 return HD_._DomTk.getDomTableCell(this._panelDomNode,this.getRowIndex(index) , this.getColumnIndex(index));
             };
 
-            return panelStack;
+            return stackPanel;
         }
     };
 
