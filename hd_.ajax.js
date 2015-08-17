@@ -50,14 +50,20 @@ HD_.Ajax = (function() {
                 }
 
                 var url = iterator.next();
-                HD_.Ajax.makeRequest(requestType, url, function onSuccess(responseText) {
+                HD_.Ajax.makeRequest(requestType, url, function onEverySuccess(responseText) {
                     onEachSuccess(url, responseText);
 
                     chainRequestsAux();
-                }, function onEachError() {
-                    console.log("_chainRequests - Ajax Error: " + url);
-                }, function onEachFinished() {
-
+                }, function onEveryError() {
+                    console.log("HD_.chainRequests - error on processing request: " + url);
+                    if (onEachError) {
+                        onEachError();
+                    }
+                }, function onEveryFinished() {
+                    console.log("HD_.chainRequests - finished processing request: " + url);
+                    if (onEachFinished) {
+                        onEachFinished();
+                    }
                 });
             }
 
