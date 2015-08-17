@@ -80,6 +80,16 @@ HD_._PanelComposite = (function() {
                 alert("HD_._PanelComposite - Panel " + this._className + "has no getPanelTableCell() method.");
             };
 
+            panelComposite.findVerifyingPanel = function(predicat) {
+                for (var i = 0; i < this._panelElements.length; i++) {
+                    var element = this._panelElements[i];
+                    var res = element.findPanel(predicat);
+                    if (res) {
+                        return res;
+                    }
+                }
+            };
+
             return panelComposite;
         }
     };

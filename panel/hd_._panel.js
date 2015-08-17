@@ -77,15 +77,7 @@ HD_._Panel = (function() {
                 if (predicat(this)) {
                     return this;
                 }
-                else if (this._panelElements) { // c'est un sous-arbre
-                    for (var i = 0; i < this._panelElements.length; i++) {
-                        var element = this._panelElements[i];
-                        var res = element.findPanel(predicat);
-                        if (res) {
-                            return res;
-                        }
-                    }
-                }
+                return this.findVerifyingPanel(predicat);
             };
             
             panel.findPanelByName = function(name) {
