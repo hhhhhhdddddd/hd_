@@ -8,15 +8,34 @@ HD_.ArrayCollection = (function() {
 
             HD_._Collection.initCollection(collection);
 
-            collection.addElement = function(element) {
+            collection._addCollectionElement = function(element) {
                 this._elements.push(element);
                 return element;
+            };
+
+            collection.addCollectionElements = function(elements) {
+                var that = this;
+                elements.forEach(function(element) {
+                    that.addElement(element);
+                });
             };
 
             collection.eachElement = function(fun) {
                 this._elements.forEach(function(element) {
                     fun(element);
                 });
+            };
+
+            collection.clearCollection = function() {
+                collection._elements = [];
+            };
+
+            collection.toArray = function() {
+                var array = [];
+                this.eachElement(function(element) {
+                    array.push(element);
+                });
+                return array;
             };
 
             return collection;
