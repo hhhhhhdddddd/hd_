@@ -12,7 +12,7 @@ HD_.PanelField = (function() {
             buildDomElement : function() {
                 var select = document.createElement("select");
                 var option = null;
-                this.values.forEach(function(value) {
+                this._values.forEach(function(value) {
                     option = document.createElement("option");
                     option.setAttribute("value", value.value);
                     option.innerHTML = value.label;
@@ -62,7 +62,7 @@ HD_.PanelField = (function() {
 
         button : {
             buildDomElement : function() {
-                var button = HD_._DomTk.buildButtonWithClickHandler(this.innerLabel, this.handler);
+                var button = HD_._DomTk.buildButtonWithClickHandler(this._innerLabel, this._handler);
                 return button;
             },
             findDomValue : function() {
@@ -73,8 +73,8 @@ HD_.PanelField = (function() {
         text : {
             buildDomElement : function() {
                 var textArea = HD_._DomTk.createDomElement("textarea");
-                textArea.setAttribute("rows", this.height);
-                textArea.setAttribute("cols", this.width);
+                textArea.setAttribute("rows", this._height);
+                textArea.setAttribute("cols", this._width);
                 return textArea;
             },
             findDomValue : function() {
@@ -87,7 +87,7 @@ HD_.PanelField = (function() {
 
         string : {
             buildDomElement : function() {
-                var stringInput = HD_._DomTk.buildTextInput(this.width, this.initValue);
+                var stringInput = HD_._DomTk.buildTextInput(this._width, this._initValue);
                 return stringInput;
             },
             findDomValue : function() {
@@ -105,7 +105,7 @@ HD_.PanelField = (function() {
             },
             setParentStyle : function() {
                 if ( this._style.verticalAlign ) {
-                    this.parentContainerStyle['verticalAlign'] = "top";
+                    this._parentContainerStyle['verticalAlign'] = "top";
                 }
             },
             findDomValue : function() {
@@ -141,15 +141,15 @@ HD_.PanelField = (function() {
             var field = Object.create(_types[options.type]);
             HD_._Panel.init(field, {name: options.name, className: "fieldPanel", style: options.style});
 
-            field.values = options.values;
-            field.eventListeners = options.eventListeners;
-            field.innerLabel = options.innerLabel;
-            field.handler = options.handler;
-            field.height = options.height;
-            field.width = options.width;
-            field.initValue = options.initValue;
-            field.type = options.type;
-            field.parentContainerStyle = {};
+            field._values = options.values;
+            field._eventListeners = options.eventListeners;
+            field._innerLabel = options.innerLabel;
+            field._handler = options.handler;
+            field._height = options.height;
+            field._width = options.width;
+            field._initValue = options.initValue;
+            field._type = options.type;
+            field._parentContainerStyle = {};
 
             if (field.setParentStyle) {
                 field.setParentStyle();
@@ -161,12 +161,12 @@ HD_.PanelField = (function() {
                 that._panelDomNode = that.buildDomElement();
 
                 if (options.initValue) {
-                    that.setFieldContent(that.initValue);
+                    that.setFieldContent(that._initValue);
                 }
 
-                if (that.eventListeners) {
-                    that.eventListeners.forEach(function(eventListener) {
-                        var listener = _types[that.type][eventListener.name];
+                if (that._eventListeners) {
+                    that._eventListeners.forEach(function(eventListener) {
+                        var listener = _types[that._type][eventListener.name];
                         if (listener) {
                             that._panelDomNode.addEventListener(eventListener.name, function(evt) {
                                 listener(evt, that);

@@ -54,7 +54,7 @@ HD_._StackPanel = (function() {
                 }
 
                 panelElt.setPanelParent(this);
-                addCellStyle(this, panelElt.parentContainerStyle, this._panelElements.length);
+                addCellStyle(this, panelElt._parentContainerStyle, this._panelElements.length);
                 this._panelElements.push(panelElt);
                 return panelElt;
             };
