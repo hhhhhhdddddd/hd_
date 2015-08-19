@@ -2,8 +2,8 @@ HD_.VerticalPanel = (function() {
 
     return {
 
-        create : function(name, style) {
-            var vPanel = HD_._StackPanel.create("vertical", name, style);
+        create : function(options) {
+            var vPanel = HD_._StackPanel.create("vertical", {name: options.name, style: options.style});
             return vPanel;
         }
     };

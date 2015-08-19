@@ -3,9 +3,9 @@ HD_._StackPanel = (function() {
 
     return {
 
-        create : function(direction, name, style) {
+        create : function(direction, options) {
             var stackPanel = Object.create(null);
-            HD_._Panel.init(stackPanel, name, direction + 'Panel', style);
+            HD_._Panel.init(stackPanel, {name: options.name, className: direction + 'Panel', style: options.style});
 
             stackPanel._panelElements = [];
             stackPanel._cellsStyle = [];

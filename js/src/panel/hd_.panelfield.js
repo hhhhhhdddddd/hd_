@@ -137,18 +137,18 @@ HD_.PanelField = (function() {
     };
 
     return {
-        create : function(data) {
-            var field = Object.create(_types[data.type]);
-            HD_._Panel.init(field, data.name, "fieldPanel", data.style);
+        create : function(options) {
+            var field = Object.create(_types[options.type]);
+            HD_._Panel.init(field, {name: options.name, className: "fieldPanel", style: options.style});
 
-            field.values = data.values;
-            field.eventListeners = data.eventListeners;
-            field.innerLabel = data.innerLabel;
-            field.handler = data.handler;
-            field.height = data.height;
-            field.width = data.width;
-            field.initValue = data.initValue;
-            field.type = data.type;
+            field.values = options.values;
+            field.eventListeners = options.eventListeners;
+            field.innerLabel = options.innerLabel;
+            field.handler = options.handler;
+            field.height = options.height;
+            field.width = options.width;
+            field.initValue = options.initValue;
+            field.type = options.type;
             field.parentContainerStyle = {};
 
             if (field.setParentStyle) {
@@ -160,7 +160,7 @@ HD_.PanelField = (function() {
 
                 that._panelDomNode = that.buildDomElement();
 
-                if (data.initValue) {
+                if (options.initValue) {
                     that.setFieldContent(that.initValue);
                 }
 
