@@ -60,7 +60,7 @@ HD_._DomTk = (function() {
             return table;
         },
 
-        getDomTableCell : function(table, row, column, domNode) {
+        getDomTableCell : function(table, row, column) {
             var tableChildren = table.children; // [body]
             var tableBody = tableChildren[0];
             var bodyChildren = tableBody.children; // [tr, tr, ...]
@@ -73,7 +73,35 @@ HD_._DomTk = (function() {
         setDomTableCell : function(table, row, column, domNode) {
             var tableCell = this.getDomTableCell(table, row, column);
             this.appendDomElement(tableCell, domNode);
-        }
+        },
+
+        buildEmptyDivTable : function(rows, columns) {
+            var table = this.createDomElement("div");
+            for (var r = 0; r < rows; r++) {
+                var row = this.createDomElement("div");
+                row.setAttribute("row", r);
+                for (var c = 0; c < columns; c++) {
+                    var column = this.createDomElement("div");
+                    column.setAttribute("column", c);
+                    this.appendDomElement(row, column);
+                }
+                this.appendDomElement(table, row);
+            }
+            return table;
+        },
+
+        getDivTableCell : function(table, row, column) {
+            var tableChildren = table.children; // [row, row, ...]
+            var tableRow = tableChildren[row];
+            var rowChildren = tableRow.children; // [column, column, ...]
+            var tableCell = rowChildren[column];
+            return tableCell;
+        },
+
+        setDivTableCell : function(table, row, column, domNode) {
+            var tableCell = this.getDomTableCell(table, row, column);
+            this.appendDomElement(tableCell, domNode);
+        },
 
     };
 

@@ -7,7 +7,7 @@ HD_.PanelField = (function() {
     var _types = {
         list : {
             findDomValue : function() {
-                return this._panelDomNode.options[this._panelDomNode.selectedIndex].value;
+                return this._fieldDomNode.options[this._fieldDomNode.selectedIndex].value;
             },
             buildDomElement : function() {
                 var select = document.createElement("select");
@@ -27,7 +27,7 @@ HD_.PanelField = (function() {
                 return HD_._DomTk.buildTextInput(5, null);
             },
             findDomValue : function() {
-                return parseInt(_findHtmlInputValue(this._panelDomNode), 10);
+                return parseInt(_findHtmlInputValue(this._fieldDomNode), 10);
             }
         },
 
@@ -37,7 +37,7 @@ HD_.PanelField = (function() {
                 return fileInput;
             },
             findDomValue : function() {
-                return _findHtmlInputValue(this._panelDomNode);
+                return _findHtmlInputValue(this._fieldDomNode);
             },
             //Retrieve the first (and only!) File from the FileList object
             change : function(evt, field) {
@@ -78,10 +78,10 @@ HD_.PanelField = (function() {
                 return textArea;
             },
             findDomValue : function() {
-                return _findHtmlInputValue(this._panelDomNode);
+                return _findHtmlInputValue(this._fieldDomNode);
             },
             setFieldContent : function(content) {
-                this._panelDomNode.value = content;
+                this._fieldDomNode.value = content;
             }
         },
 
@@ -91,10 +91,10 @@ HD_.PanelField = (function() {
                 return stringInput;
             },
             findDomValue : function() {
-                return _findHtmlInputValue(this._panelDomNode);
+                return _findHtmlInputValue(this._fieldDomNode);
             },
             setFieldContent : function(content) {
-                this._panelDomNode.value = content;
+                this._fieldDomNode.value = content;
             }
         },
 
@@ -117,7 +117,7 @@ HD_.PanelField = (function() {
                 content.split("\n").forEach(function(line) {
                     paragraph = HD_._DomTk.createDomElement("p");
                     paragraph.innerHTML = line;
-                    that._panelDomNode.appendChild(paragraph);
+                    that._fieldDomNode.appendChild(paragraph);
                 });
             }
         },
@@ -131,7 +131,7 @@ HD_.PanelField = (function() {
                 return null;
             },
             setFieldContent : function(content) {
-                this._panelDomNode.setAttribute('src', content);
+                this._fieldDomNode.setAttribute('src', content);
             }
         }
     };
@@ -150,6 +150,7 @@ HD_.PanelField = (function() {
             field._initValue = options.initValue;
             field._type = options.type;
             field._parentContainerStyle = {};
+            field._fieldDomNode = null;
 
             if (field.setParentStyle) {
                 field.setParentStyle();
@@ -158,7 +159,9 @@ HD_.PanelField = (function() {
             field.buildPanelDomNode = function() {
                 var that = this;
 
-                that._panelDomNode = that.buildDomElement();
+                that._fieldDomNode = that.buildDomElement();
+                that._panelDomNode = HD_._DomTk.createDomElement("div");
+                that._panelDomNode.appendChild(that._fieldDomNode);
 
                 if (options.initValue) {
                     that.setFieldContent(that._initValue);

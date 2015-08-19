@@ -14,7 +14,7 @@ HD_._Panel = (function() {
             panel._parent = null;
             panel._name = options.name ? options.name : "";
             panel._className = options.className;
-            panel._style = options.style;
+            panel._style = options.style ? options.style : {};
             panel._title = options.title;
 
             panel.buildPanelDomNode = function() {
@@ -53,10 +53,18 @@ HD_._Panel = (function() {
                 }
             };
 
+            panel.addPanelStyle = function(styleName, styleValue) {
+                this._style[styleName] = styleValue;
+            };
+
+            panel.hasPanelStyle = function(styleName) {
+                return typeof this._style[styleName] !== "undefined";
+            };
+
             panel.refreshPanel = function() {
                 var parent = _findParentDomNode(this);
                 parent.removeChild(this._panelDomNode);
-                this._panelDomNode = this.buildPanelDomNode();
+                this._panelDomNode = this.buildDomNode();
                 parent.appendChild(this._panelDomNode);
             };
 
