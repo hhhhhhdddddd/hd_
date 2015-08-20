@@ -43,6 +43,17 @@ HD_._DomTk = (function() {
             }
         },
 
+        prependDomElement : function(node, elementToPrepend) {
+            var children = node.children;
+            if (children.length === 0) {
+                node.appendChild(elementToPrepend);
+            }
+            else {
+                var firstChild = children[0];
+                node.insertBefore(elementToPrepend, firstChild);
+            }
+        },
+
         // Tableaux
 
         buildEmptyTable : function(rows, columns) {
@@ -74,6 +85,8 @@ HD_._DomTk = (function() {
             var tableCell = this.getDomTableCell(table, row, column);
             this.appendDomElement(tableCell, domNode);
         },
+
+        // Tableau de div
 
         buildEmptyDivTable : function(rows, columns) {
             var table = this.createDomElement("div");

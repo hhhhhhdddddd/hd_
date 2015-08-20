@@ -5,7 +5,12 @@ HD_._StackPanel = (function() {
 
         create : function(direction, options) {
             var stackPanel = Object.create(null);
-            HD_._Panel.init(stackPanel, {name: options.name, className: direction + 'Panel', style: options.style});
+            HD_._Panel.init(stackPanel, {
+                name: options.name,
+                className: direction + 'Panel',
+                style: options.style,
+                title : options.title
+            });
 
             stackPanel._panelElements = [];
             stackPanel._cellsStyle = [];
@@ -83,7 +88,7 @@ HD_._StackPanel = (function() {
 
             stackPanel.pushAndShow = function(panelElt) {
                 this.pushPanelElement(panelElt);
-                var eltNode = panelElt.buildPanelDomNode();
+                var eltNode = panelElt.buildDomNode();
                 this._panelDomNode.appendChild(eltNode);
             };
 
@@ -104,7 +109,6 @@ HD_._StackPanel = (function() {
             stackPanel.buildPanelDomNode = function() {
                 var that = this;
                 that._panelDomNode = that.buildPanelEmptyTable();
-                that._panelDomNode.setAttribute("name", that._name);
                 HD_._DomTk.appendClassName(that._panelDomNode, that._className);
                 that._panelElements.forEach(function(panelElement, index) {
                     var domNode = panelElement.buildDomNode();

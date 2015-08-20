@@ -15,7 +15,8 @@ HD_._Panel = (function() {
             panel._name = options.name ? options.name : "";
             panel._className = options.className;
             panel._style = options.style ? options.style : {};
-            panel._title = options.title;
+            panel._titleData = options.title;
+            panel._hideChildrenHandler = options.hideChildrenHandler; // todo wip
 
             panel.buildPanelDomNode = function() {
                 alert("HD_._Panel -  " + this._className + " has no buildPanelDomNode() method.");
@@ -41,8 +42,39 @@ HD_._Panel = (function() {
             };
 
             panel.buildDomNode = function() {
+                function hasMenu(thisPanel) {
+                    return ((typeof thisPanel._titleData !== "undefined") || (typeof thisPanel._hideChildrenHandler !== "undefined"));
+                }
+
+                function buildMenuPanel(thisPanel) {
+
+                    function buildName(suffix, panelName) {
+                        return suffix + "_" + panelName;
+                    }
+
+                    var titleData = thisPanel._titleData;
+                    var menuPanel = HD_.HorizontalPanel.create({name: buildName("menupanel", thisPanel.getName())});
+
+                    if (thisPanel._titleData) {
+                        menuPanel.pushPanelElement(HD_.PanelField.create({
+                            name: buildName("title", thisPanel.getName()),
+                            type: "title",
+                            initValue: titleData.text,
+                            size: titleData.size
+                        }));
+                    }
+
+                    return menuPanel.buildDomNode();
+                }
+
                 var domNode = this.buildPanelDomNode();
+                domNode.setAttribute("name", this._name);
+
                 this.applyPanelStyle(domNode);
+                if (hasMenu(this)) {
+                    HD_._DomTk.prependDomElement(domNode, buildMenuPanel(this));
+                }
+
                 return domNode;
             };
 
