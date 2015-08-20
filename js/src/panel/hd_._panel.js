@@ -4,13 +4,13 @@ HD_._Panel = (function() {
 
     // todo: plante sur rafraichissement de la racine (mainPanel)
     function _findParentDomNode(panel) {
-        return panel._panelDomNode.parentElement;
+        return panel._panelContent.parentElement;
     }
 
     return {
 
         init : function(panel, options) {
-            panel._panelDomNode = null;
+            panel._panelContent = null;
             panel._parent = null;
             panel._name = options.name ? options.name : "";
             panel._className = options.className;
@@ -63,9 +63,9 @@ HD_._Panel = (function() {
 
             panel.refreshPanel = function() {
                 var parent = _findParentDomNode(this);
-                parent.removeChild(this._panelDomNode);
-                this._panelDomNode = this.buildDomNode();
-                parent.appendChild(this._panelDomNode);
+                parent.removeChild(this._panelContent);
+                this._panelContent = this.buildDomNode();
+                parent.appendChild(this._panelContent);
             };
 
             panel.getName = function() {
@@ -73,16 +73,16 @@ HD_._Panel = (function() {
             };
 
             panel.show = function() {
-                this._panelDomNode.style.display = "block";
+                this._panelContent.style.display = "block";
             };
 
             panel.hide = function() {
-                this._panelDomNode.style.display = "none";
+                this._panelContent.style.display = "none";
             };
 
             panel.removePanel = function() {
                 var parent = _findParentDomNode(this);
-                parent.removeChild(this._panelDomNode);
+                parent.removeChild(this._panelContent);
             };
 
             // Retourne le panneau vérifiant le prédicat passé en argument.

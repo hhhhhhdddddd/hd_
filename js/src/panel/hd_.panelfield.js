@@ -109,7 +109,7 @@ HD_.PanelField = (function() {
                 }
             },
             findDomValue : function() {
-                return "textDisplay: findDomValue todo";
+                return "HD_.PanelField._types.textDisplay: findDomValue todo";
             },
             setFieldContent : function(content) {
                 var that = this;
@@ -119,6 +119,35 @@ HD_.PanelField = (function() {
                     paragraph.innerHTML = line;
                     that._fieldDomNode.appendChild(paragraph);
                 });
+            }
+        },
+
+        title : {
+            buildDomElement : function() {
+                this._size =  this._size ? this._size : "medium";
+                var titleTagName = null;
+                if (this._size) {
+                    if (this._size === "small") {
+                        titleTagName = "h3";
+                    }
+                    else if (this._size === "medium") {
+                        titleTagName = "h2";
+                    }
+                    else if (this._size === "big") {
+                        titleTagName = "h1";
+                    }
+                }
+
+                var node = HD_._DomTk.createDomElement(titleTagName);
+
+                return node;
+            },
+            findDomValue : function() {
+                return "HD_.PanelField._types.title: findDomValue todo";
+            },
+            setFieldContent : function(content) {
+                this._fieldDomNode.innerHTML = content;
+                
             }
         },
 
@@ -151,6 +180,8 @@ HD_.PanelField = (function() {
             field._type = options.type;
             field._parentContainerStyle = {};
             field._fieldDomNode = null;
+            field._size = options.size;
+            field._name = options.name;
 
             if (field.setParentStyle) {
                 field.setParentStyle();
@@ -160,8 +191,8 @@ HD_.PanelField = (function() {
                 var that = this;
 
                 that._fieldDomNode = that.buildDomElement();
-                that._panelDomNode = HD_._DomTk.createDomElement("div");
-                that._panelDomNode.appendChild(that._fieldDomNode);
+                that._panelContent = HD_._DomTk.createDomElement("div");
+                that._panelContent.appendChild(that._fieldDomNode);
 
                 if (options.initValue) {
                     that.setFieldContent(that._initValue);
@@ -171,7 +202,7 @@ HD_.PanelField = (function() {
                     that._eventListeners.forEach(function(eventListener) {
                         var listener = _types[that._type][eventListener.name];
                         if (listener) {
-                            that._panelDomNode.addEventListener(eventListener.name, function(evt) {
+                            that._panelContent.addEventListener(eventListener.name, function(evt) {
                                 listener(evt, that);
                                 eventListener.handler(evt);
                             },
@@ -181,7 +212,7 @@ HD_.PanelField = (function() {
                 }
 
                 
-                return that._panelDomNode;
+                return that._panelContent;
             };
 
             field.findVerifyingPanel = function(predicat) {
