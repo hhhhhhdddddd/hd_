@@ -1,7 +1,5 @@
 HD_._Panel = (function() {
 
-    var _generatedName = 0;
-
     return {
 
         init : function(panel, options) {
