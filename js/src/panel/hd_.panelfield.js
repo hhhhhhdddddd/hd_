@@ -191,8 +191,8 @@ HD_.PanelField = (function() {
                 var that = this;
 
                 that._fieldDomNode = that.buildDomElement();
-                that._panelContent = HD_._DomTk.createDomElement("div");
-                that._panelContent.appendChild(that._fieldDomNode);
+                that._panelDomContent = HD_._DomTk.createDomElement("div");
+                that._panelDomContent.appendChild(that._fieldDomNode);
 
                 if (options.initValue) {
                     that.setFieldContent(that._initValue);
@@ -202,7 +202,7 @@ HD_.PanelField = (function() {
                     that._eventListeners.forEach(function(eventListener) {
                         var listener = _types[that._type][eventListener.name];
                         if (listener) {
-                            that._panelContent.addEventListener(eventListener.name, function(evt) {
+                            that._panelDomContent.addEventListener(eventListener.name, function(evt) {
                                 listener(evt, that);
                                 eventListener.handler(evt);
                             },
@@ -212,7 +212,7 @@ HD_.PanelField = (function() {
                 }
 
                 
-                return that._panelContent;
+                return that._panelDomContent;
             };
 
             field.findVerifyingPanel = function(predicat) {

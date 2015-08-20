@@ -2,20 +2,15 @@ HD_._Panel = (function() {
 
     var _generatedName = 0;
 
-    // todo: plante sur rafraichissement de la racine (mainPanel)
-    function _findParentDomNode(panel) {
-        return panel._panelContent.parentElement;
-    }
-
     return {
 
         init : function(panel, options) {
-            panel._panelContent = null;
+            panel._panelDomContent = null;
             panel._parent = null;
             panel._name = options.name ? options.name : "";
             panel._className = options.className;
             panel._style = options.style ? options.style : {};
-            panel._title = options.title;
+            panel._content = HD_._DomTk.createDomElement("div");
 
             panel.buildPanelDomNode = function() {
                 alert("HD_._Panel -  " + this._className + " has no buildPanelDomNode() method.");
@@ -41,8 +36,18 @@ HD_._Panel = (function() {
             };
 
             panel.buildDomNode = function() {
-                var domNode = this.buildPanelDomNode();
+                this.buildPanelDomNode();
+                
+                var contentNode = HD_._DomTk.createDomElement("div");
+                contentNode.setAttribute("name", this._name + "_content");
+                contentNode.appendChild(this._panelDomContent);
+
+                var domNode = HD_._DomTk.createDomElement("div");
+                domNode.setAttribute("name", this._name);
+                HD_._DomTk.appendClassName(domNode, this._className);
+                domNode.appendChild(contentNode);
                 this.applyPanelStyle(domNode);
+                
                 return domNode;
             };
 
@@ -62,10 +67,16 @@ HD_._Panel = (function() {
             };
 
             panel.refreshPanel = function() {
+
+                // todo: plante sur rafraichissement de la racine (mainPanel)
+                function _findParentDomNode(panel) {
+                    return panel._panelDomContent.parentElement;
+                }
+
                 var parent = _findParentDomNode(this);
-                parent.removeChild(this._panelContent);
-                this._panelContent = this.buildDomNode();
-                parent.appendChild(this._panelContent);
+                parent.removeChild(this._panelDomContent);
+                this.buildPanelDomNode();
+                parent.appendChild(this._panelDomContent);
             };
 
             panel.getName = function() {
@@ -73,16 +84,11 @@ HD_._Panel = (function() {
             };
 
             panel.show = function() {
-                this._panelContent.style.display = "block";
+                this._panelDomContent.style.display = "block";
             };
 
             panel.hide = function() {
-                this._panelContent.style.display = "none";
-            };
-
-            panel.removePanel = function() {
-                var parent = _findParentDomNode(this);
-                parent.removeChild(this._panelContent);
+                this._panelDomContent.style.display = "none";
             };
 
             // Retourne le panneau vérifiant le prédicat passé en argument.

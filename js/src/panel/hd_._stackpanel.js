@@ -83,8 +83,8 @@ HD_._StackPanel = (function() {
 
             stackPanel.pushAndShow = function(panelElt) {
                 this.pushPanelElement(panelElt);
-                var eltNode = panelElt.buildPanelDomNode();
-                this._panelContent.appendChild(eltNode);
+                var eltNode = panelElt.buildDomNode();
+                this._panelDomContent.appendChild(eltNode);
             };
 
             stackPanel.eachPanelElement = function(fun) {
@@ -103,16 +103,14 @@ HD_._StackPanel = (function() {
 
             stackPanel.buildPanelDomNode = function() {
                 var that = this;
-                that._panelContent = that.buildPanelEmptyTable();
-                that._panelContent.setAttribute("name", that._name);
-                HD_._DomTk.appendClassName(that._panelContent, that._className);
+                that._panelDomContent = that.buildPanelEmptyTable();
+                that._panelDomContent.setAttribute("name", that._name + "_divtable");
                 that._panelElements.forEach(function(panelElement, index) {
                     var domNode = panelElement.buildDomNode();
                     domNode.setAttribute("parentPanel", that._name);
                     var tableCell = that.getPanelTableCell(index);
                     tableCell.appendChild(domNode);
                 });
-                return that._panelContent;
             };
 
             stackPanel.getNumberOfElements = function() {
@@ -134,11 +132,11 @@ HD_._StackPanel = (function() {
             };
 
             stackPanel.setPanelTableCell = function(index, domNode) {
-                HD_._DomTk.setDivTableCell(this._panelContent,this.getRowIndex(index) , this.getColumnIndex(index), domNode);
+                HD_._DomTk.setDivTableCell(this._panelDomContent,this.getRowIndex(index) , this.getColumnIndex(index), domNode);
             };
 
             stackPanel.getPanelTableCell = function(index) {
-                return HD_._DomTk.getDivTableCell(this._panelContent,this.getRowIndex(index) , this.getColumnIndex(index));
+                return HD_._DomTk.getDivTableCell(this._panelDomContent,this.getRowIndex(index) , this.getColumnIndex(index));
             };
 
             return stackPanel;
