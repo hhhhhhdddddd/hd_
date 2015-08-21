@@ -1,5 +1,18 @@
 HD_.LocalWarnings = (function() {
 
+    var _warnings = [
+        _createWarning({
+            name: 'localhost',
+            predicatName : "isLocalHost",
+            condition : location.hostname
+        }),
+        _createWarning({
+            name: 'file:',
+            predicatName : "isFileProtocol",
+            condition : location.protocol
+        })
+    ];
+
     function _createWarning(warningData) {
         var warning = Object.create(warningData);
         warning._name = warningData.name;
@@ -39,19 +52,6 @@ HD_.LocalWarnings = (function() {
 
         return warning;
     }
-
-    var _warnings = [
-        _createWarning({
-            name: 'localhost',
-            predicatName : "isLocalHost",
-            condition : location.hostname
-        }),
-        _createWarning({
-            name: 'file:',
-            predicatName : "isFileProtocol",
-            condition : location.protocol
-        })
-    ];
 
     function _createWarningsCollection() {
         var localWarnings = HD_.ArrayCollection.create();
