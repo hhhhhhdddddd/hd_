@@ -9,16 +9,29 @@ HD_.PanelField = (function() {
             findDomValue : function() {
                 return this._fieldDomNode.options[this._fieldDomNode.selectedIndex].value;
             },
+            _findLabels : function() {
+                var labels = [];
+                this._valuesGetter().forEach(function(value) {
+                    labels.push(value.label);
+                });
+                return labels;
+            },
             buildDomElement : function() {
                 var select = document.createElement("select");
                 var option = null;
-                this._values.forEach(function(value) {
+                this._valuesGetter().forEach(function(value) {
                     option = document.createElement("option");
                     option.setAttribute("value", value.value);
                     option.innerHTML = value.label;
                     select.appendChild(option);
                 });
                 return select;
+            },
+            refreshFieldTexts : function(text) {
+                var labels = this._findLabels();
+                for (var i = 0; i < this._fieldDomNode.options.length; i++) {
+                    this._fieldDomNode.options[i].innerHTML = labels[i];
+                }
             }
         },
 
@@ -175,7 +188,7 @@ HD_.PanelField = (function() {
             var field = Object.create(_types[options.type]);
             HD_._Panel.init(field, {name: options.name, className: "fieldPanel", style: options.style});
 
-            field._values = options.values;
+            field._valuesGetter = options.valuesGetter;
             field._eventListeners = options.eventListeners;
             field._innerLabel = options.innerLabel;
             field._handler = options.handler;
