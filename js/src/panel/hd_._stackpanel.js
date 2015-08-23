@@ -93,6 +93,15 @@ HD_._StackPanel = (function() {
                 });
             };
 
+            stackPanel.mapPanels = function(fun) {
+                this._panelElements.forEach(function(panelElt) {
+                    fun(panelElt);
+                    if (panelElt._panelElements) {
+                        panelElt.mapPanels(fun);
+                    }
+                });
+            };
+
             stackPanel.getChildPanel = function(i) {
                 return this._panelElements[i];
             };
