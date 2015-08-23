@@ -62,11 +62,16 @@ HD_.PanelField = (function() {
 
         button : {
             buildDomElement : function() {
-                var button = HD_._DomTk.buildButtonWithClickHandler(this._innerLabel, this._handler);
+                var innerLabel = this.generateText(this._texts.innerLabel);
+                var button = HD_._DomTk.buildButtonWithClickHandler(innerLabel, this._handler);
                 return button;
             },
             findDomValue : function() {
                 return null;
+            },
+            refreshFieldTexts : function(text) {
+                var innerLabel = this.generateText(this._texts.innerLabel);
+                this._fieldDomNode.innerHTML = innerLabel;
             }
         },
 
@@ -182,6 +187,7 @@ HD_.PanelField = (function() {
             field._fieldDomNode = null;
             field._size = options.size;
             field._name = options.name;
+            field._texts = options.texts;
 
             if (field.setParentStyle) {
                 field.setParentStyle();
@@ -211,7 +217,6 @@ HD_.PanelField = (function() {
                     });
                 }
 
-                
                 return that._panelDomContent;
             };
 
@@ -223,8 +228,37 @@ HD_.PanelField = (function() {
                 // Rien de plus à faire que ce qui est fait dans panel.findPanel()
             };
 
+
+            field.changeTexts_ = function(textsObject) {
+                if (this.changeFieldTexts) {
+                    this.changeFieldTexts(textsObject);
+                }
+            };
+
+            /*
+            L'argument est
+            - soit un texte simple
+            - soit un tableau
+            Si c'est un tableau alors textUpdater() doit pouvoir le gérer.
+            */
+            field.generateText = function(textData) {
+                if (this._texts.textUpdater) {
+                    return this._texts.textUpdater(textData);
+                }
+                else {
+                    return textData;
+                }
+            };
+
             return field;
         }
     };
 
 })();
+
+/*
+trois types de textes
+- un seul texte: le libellé d'un bouton
+- plusieurs textes: les libellés d'un select
+- 
+*/
