@@ -15,7 +15,7 @@ HD_._Collection = (function() {
 
             /*
             On profite du fait que les tableaux sont des objets
-            dont les clé sont les indices.
+            dont les clÃ© sont les indices.
             */
             collection.findElement = function(predicat) {
                 var size = this.getSize();
@@ -39,6 +39,14 @@ HD_._Collection = (function() {
 
             collection.getSize =  function(key) {
                 return this._size;
+            };
+
+            collection.mapFunToArray = function(fun) {
+                var res = [];
+                this.eachElement(function(elt) {
+                    res.push(fun(elt));
+                });
+                return res;
             };
         }
     };
