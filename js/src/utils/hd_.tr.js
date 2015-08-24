@@ -1,13 +1,30 @@
 HD_.Translater = (function() {
 
+    function _createTranslation(name, translations) {
+        var translation = Object.create(null);
+        translation._name = name;
+        translation._translations = translations;
+        return translation;
+    }
+
     return {
         create : function() {
-            var translater = Object.create(null);
-            translater._localTranslations = null;
+            var translater = HD_.ArrayCollection.create();
             translater._translationsKeys = null;
+            translater._currentTranslation = null;
 
-            translater.setLocalTr = function(localTranslations) {
-                this._localTranslations = localTranslations;
+            translater.addTranlsation = function(name, translations) {
+                this.addElement(_createTranslation(name, translations));
+            };
+
+            translater.setCurrentTranlsation = function(name) {
+                this._currentTranslation = this.findElement(function(translation) {
+                    return translation._name === name;
+                });
+            };
+
+            translater.getCurrentTranslationName = function() {
+                return translater._currentTranslation._name;
             };
 
             translater.setTrKeys = function(translationsKeys) {
@@ -18,19 +35,20 @@ HD_.Translater = (function() {
                 return this._translationsKeys[translationsKeys];
             };
 
-            translater.findLocalTranslation = function(str) {
-                var translation = translater._localTranslations[str];
+            translater.findTranslation = function(str) {
+                var translation = translater._currentTranslation._translations[str];
                 return translation ? translation : str;
             };
 
             translater.translate = function(str, placeholdersValues) {
 
                 var fullTranslation = null;
+                var currentTranslation = this.findTranslation(str);
                 if (placeholdersValues) {
-                    fullTranslation = HD_.Translater.replaceArgs(translater.findLocalTranslation(str), placeholdersValues);
+                    fullTranslation = HD_.Translater.replaceArgs(currentTranslation, placeholdersValues);
                 }
                 else {
-                    var temp = translater._localTranslations[str];
+                    var temp = currentTranslation;
                     if (! temp) {
                         fullTranslation = str;
                     }
