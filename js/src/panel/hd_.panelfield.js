@@ -75,16 +75,16 @@ HD_.PanelField = (function() {
 
         button : {
             buildDomElement : function() {
-                var innerLabel = this.generateText(this._texts.innerLabel);
-                var button = HD_._DomTk.buildButtonWithClickHandler(innerLabel, this._handler);
+                var label = this.generateText();
+                var button = HD_._DomTk.buildButtonWithClickHandler(label, this._handler);
                 return button;
             },
             findDomValue : function() {
                 return null;
             },
             refreshFieldTexts : function(text) {
-                var innerLabel = this.generateText(this._texts.innerLabel);
-                this._fieldDomNode.innerHTML = innerLabel;
+                var label = this.generateText();
+                this._fieldDomNode.innerHTML = label;
             }
         },
 
@@ -190,7 +190,6 @@ HD_.PanelField = (function() {
 
             field._valuesGetter = options.valuesGetter;
             field._eventListeners = options.eventListeners;
-            field._innerLabel = options.innerLabel;
             field._handler = options.handler;
             field._height = options.height;
             field._width = options.width;
@@ -200,7 +199,9 @@ HD_.PanelField = (function() {
             field._fieldDomNode = null;
             field._size = options.size;
             field._name = options.name;
-            field._texts = options.texts;
+            field._label = options.label;
+            field._labelUpdater = options.labelUpdater;
+            field._placeholdersValues = options.placeholdersValues;
 
             if (field.setParentStyle) {
                 field.setParentStyle();
@@ -254,12 +255,17 @@ HD_.PanelField = (function() {
             - soit un tableau
             Si c'est un tableau alors textUpdater() doit pouvoir le gérer.
             */
-            field.generateText = function(textData) {
-                if (this._texts.textUpdater) {
-                    return this._texts.textUpdater(textData);
+            field.generateText = function(label) {
+                if (this._labelUpdater) {
+                    if (this._placeholdersValues) {
+                        return this._labelUpdater(this._label, this._placeholdersValues);
+                    }
+                    else {
+                        return this._labelUpdater(this._label);
+                    }
                 }
                 else {
-                    return textData;
+                    return this._label;
                 }
             };
 
