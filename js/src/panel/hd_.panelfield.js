@@ -9,30 +9,27 @@ HD_.PanelField = (function() {
             findDomValue : function() {
                 return this._fieldDomNode.options[this._fieldDomNode.selectedIndex].value;
             },
-            _findLabels : function() {
-                var labels = [];
-                this._valuesGetter().forEach(function(value) {
-                    labels.push(value.label);
-                });
-                return labels;
-            },
             buildDomElement : function() {
                 var select = document.createElement("select");
                 var option = null;
-                this._valuesGetter().forEach(function(value) {
+                var values = this._labelValuesBuilder();
+                var labels = this._labelsBuilder();
+                values.forEach(function(value, index) {
                     option = document.createElement("option");
                     option.setAttribute("value", value.value);
-                    option.innerHTML = value.label;
+                    option.innerHTML = labels[index];
                     select.appendChild(option);
                 });
                 return select;
             },
             refreshFieldTexts : function(text) {
-                var labels = this._findLabels();
+                var labels = this._labelsBuilder();
                 for (var i = 0; i < this._fieldDomNode.options.length; i++) {
                     this._fieldDomNode.options[i].innerHTML = labels[i];
                 }
-            }
+            },
+            multiLabels : true,
+            multiLabelValues : true,
         },
 
         number : {
@@ -75,7 +72,7 @@ HD_.PanelField = (function() {
 
         button : {
             buildDomElement : function() {
-                var label = this.generateText();
+                var label = this._labelBuilder();
                 var button = HD_._DomTk.buildButtonWithClickHandler(label, this._handler);
                 return button;
             },
@@ -83,7 +80,7 @@ HD_.PanelField = (function() {
                 return null;
             },
             refreshFieldTexts : function(text) {
-                var label = this.generateText();
+                var label = this._labelBuilder();
                 this._fieldDomNode.innerHTML = label;
             }
         },
@@ -205,6 +202,19 @@ HD_.PanelField = (function() {
 
             if (field.setParentStyle) {
                 field.setParentStyle();
+            }
+
+            // Tous les champs ont un libellé, simple ou multiple
+            if (field.multiLabels === true) {
+                field._labelsBuilder = options.labelsBuilder;
+            }
+            else {
+                field._labelBuilder = options.labelBuilder;
+            }
+
+            // Tous les champs n'ont pas de valeur associé à leur libellé.
+            if (field.multiLabelValues === true) {
+                field._labelValuesBuilder = options.labelValuesBuilder;
             }
 
             field.buildPanelDomNode = function() {

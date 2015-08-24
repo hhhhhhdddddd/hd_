@@ -18,11 +18,16 @@ HD_.Translater = (function() {
                 return this._translationsKeys[translationsKeys];
             };
 
+            translater.findLocalTranslation = function(str) {
+                var translation = translater._localTranslations[str];
+                return translation ? translation : str;
+            };
+
             translater.translate = function(str, placeholdersValues) {
 
                 var fullTranslation = null;
                 if (placeholdersValues) {
-                    fullTranslation = HD_.Translater.replaceArgs(translater._localTranslations[str], placeholdersValues);
+                    fullTranslation = HD_.Translater.replaceArgs(translater.findLocalTranslation(str), placeholdersValues);
                 }
                 else {
                     var temp = translater._localTranslations[str];
