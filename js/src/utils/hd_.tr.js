@@ -4,6 +4,10 @@ HD_.Translater = (function() {
         var translation = Object.create(null);
         translation._name = name;
         translation._translations = translations;
+        translation.getName = function() {
+            return this._name;
+        };
+
         return translation;
     }
 
