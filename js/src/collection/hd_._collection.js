@@ -32,9 +32,9 @@ HD_._Collection = (function() {
                 return this._elements[ key ];
             };
 
-            collection.addElement =  function(key) {
+            collection.addElement =  function() {
                 this._size++;
-                return this._addCollectionElement(key);
+                return this._addCollectionElement.apply(this, arguments);
             };
 
             collection.getSize =  function(key) {
