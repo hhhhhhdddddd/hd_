@@ -34,6 +34,12 @@ HD_.TranslaterPanel = (function() {
             };
 
             return translaterPanel;
+        },
+
+        addTranslaterPanel : function(translater, parentDomNode, handler) {
+            var translaterPanel = HD_.TranslaterPanel.create(translater, handler);
+            var trDomNode = translaterPanel.buildDomNode();
+            parentDomNode.appendChild(trDomNode);
         }
     };
 
