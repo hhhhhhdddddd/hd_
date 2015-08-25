@@ -64,7 +64,22 @@ HD_.Translater = (function() {
                 return fullTranslation;
             };
 
+            translater.trKey = function(key) {
+                return this.translate(this.getTrKey(key));
+            };
+
             return translater;
+        },
+
+        setAppTrProperty : function(appObject, propName, language, translationsKeys, translationsArray) {
+            var translater = this.create();
+            translationsArray.forEach(function(translation) { // translation == {name: str, translations: array}
+                translater.addTranlsation(translation.name, translation.translations);
+            });
+            translater.setCurrentTranlsation(language);
+            translater.setTrKeys(translationsKeys);
+
+            appObject[propName] = translater;
         },
 
         /*
