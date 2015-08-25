@@ -36,10 +36,22 @@ HD_.TranslaterPanel = (function() {
             return translaterPanel;
         },
 
-        addTranslaterPanel : function(translater, parentDomNode, handler) {
-            var translaterPanel = HD_.TranslaterPanel.create(translater, handler);
+        addTranslaterPanel : function(translater, panel, handler) {
+            var translaterPanel = HD_.TranslaterPanel.create(translater, function translationHandler(translationName) {
+
+                function refreshFieldTexts(panel) {
+                    panel.mapPanels(function(pan) {
+                        if (pan.refreshFieldTexts) {
+                            pan.refreshFieldTexts();
+                        }
+                    });
+                }
+
+                translater.setCurrentTranlsation(translationName);
+                refreshFieldTexts(panel);
+            });
             var trDomNode = translaterPanel.buildDomNode();
-            parentDomNode.appendChild(trDomNode);
+            panel.getDomNode().appendChild(trDomNode);
         }
     };
 

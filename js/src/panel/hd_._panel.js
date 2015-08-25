@@ -9,6 +9,7 @@ HD_._Panel = (function() {
             panel._className = options.className;
             panel._style = options.style ? options.style : {};
             panel._content = HD_._DomTk.createDomElement("div");
+            panel._domNode = null;
 
             panel.buildPanelDomNode = function() {
                 alert("HD_._Panel -  " + this._className + " has no buildPanelDomNode() method.");
@@ -33,6 +34,13 @@ HD_._Panel = (function() {
                 }
             };
 
+            panel.getDomNode = function() {
+                if (this._domNode === null) {
+                    throw new Error("domNode null");
+                }
+                return this._domNode;
+            };
+
             panel.buildDomNode = function() {
                 this.buildPanelDomNode();
                 
@@ -46,7 +54,9 @@ HD_._Panel = (function() {
                 domNode.appendChild(contentNode);
                 this.applyPanelStyle(domNode);
                 
-                return domNode;
+                this._domNode = domNode;
+
+                return this._domNode;
             };
 
             panel.applyPanelStyle = function(domNode) {
