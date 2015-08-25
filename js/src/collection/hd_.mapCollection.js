@@ -14,7 +14,7 @@ HD_.MapCollection = (function() {
 
             collection.eachElement = function(fun) {
                 for (var propName in this._elements) {
-                    fun(this._elements[ propName ]);
+                    fun(this._elements[ propName ], propName);
                 }
             };
 

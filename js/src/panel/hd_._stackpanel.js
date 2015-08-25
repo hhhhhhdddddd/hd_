@@ -4,8 +4,9 @@ HD_._StackPanel = (function() {
     return {
 
         create : function(direction, options) {
-            var stackPanel = Object.create(null);
+            var stackPanel = HD_.ArrayCollection.create();
             HD_._Panel.init(stackPanel, {name: options.name, className: direction + 'Panel', style: options.style});
+            stackPanel._cellsStyle = [];
 
             if (options.type && (options.type === "table")) {
                 stackPanel.buildPanelEmptyTable = function() {
@@ -33,9 +34,6 @@ HD_._StackPanel = (function() {
                     return HD_._DomTk.getDivTableCell(this._panelDomContent,this.getRowIndex(index) , this.getColumnIndex(index));
                 };
             }
-
-            stackPanel._panelElements = [];
-            stackPanel._cellsStyle = [];
 
             if (direction === "horizontal") {
                 stackPanel.getNumberOfRows = function(index) {
@@ -88,8 +86,8 @@ HD_._StackPanel = (function() {
 
                 panelElt.setPanelParent(this);
                 this.setChildFloatStyle(panelElt);
-                addCellStyle(this, panelElt._parentContainerStyle, this._panelElements.length);
-                this._panelElements.push(panelElt);
+                addCellStyle(this, panelElt._parentContainerStyle, this.getSize());
+                this.addElement(panelElt);
                 return panelElt;
             };
 
@@ -114,34 +112,26 @@ HD_._StackPanel = (function() {
                 this._panelDomContent.appendChild(eltNode);
             };
 
-            stackPanel.eachPanelElement = function(fun) {
-                this._panelElements.forEach(function(panelElt) {
-                    fun(panelElt);
-                });
-            };
-
             stackPanel.mapPanels = function(fun) {
-                this._panelElements.forEach(function(panelElt) {
-                    fun(panelElt);
-                    if (panelElt._panelElements) {
-                        panelElt.mapPanels(fun);
-                    }
+                fun(this);
+                this.eachElement(function(panelElt) {
+                    panelElt.mapPanels(fun);
                 });
             };
 
             stackPanel.getChildPanel = function(i) {
-                return this._panelElements[i];
+                return this.getElement(i);
             };
 
             stackPanel.clearPanelElements = function() {
-                this._panelElements = [];
+                this.clearCollection();
             };
 
             stackPanel.buildPanelDomNode = function() {
                 var that = this;
                 that._panelDomContent = that.buildPanelEmptyTable();
                 that._panelDomContent.setAttribute("name", that._name + "_divtable");
-                that._panelElements.forEach(function(panelElement, index) {
+                that.eachElement(function(panelElement, index) {
                     var domNode = panelElement.buildDomNode();
                     domNode.setAttribute("parentPanel", that._name);
                     var tableCell = that.getPanelTableCell(index);
@@ -150,12 +140,12 @@ HD_._StackPanel = (function() {
             };
 
             stackPanel.getNumberOfElements = function() {
-                return this._panelElements.length;
+                return this.getSize();
             };
 
             stackPanel.findVerifyingPanel = function(predicat) {
-                for (var i = 0; i < this._panelElements.length; i++) {
-                    var element = this._panelElements[i];
+                for (var i = 0; i < this.getSize(); i++) {
+                    var element = this.getElement(i);
                     var res = element.findPanel(predicat);
                     if (res) {
                         return res;

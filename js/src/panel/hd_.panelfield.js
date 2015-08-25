@@ -244,6 +244,10 @@ HD_.PanelField = (function() {
                 return that._panelDomContent;
             };
 
+            field.mapPanels = function(fun) {
+                fun(this);
+            };
+
             field.findVerifyingPanel = function(predicat) {
                 // Rien de plus à faire que ce qui est fait dans panel.findPanel()
             };

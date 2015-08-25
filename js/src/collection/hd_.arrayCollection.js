@@ -21,8 +21,8 @@ HD_.ArrayCollection = (function() {
             };
 
             collection.eachElement = function(fun) {
-                this._elements.forEach(function(element) {
-                    fun(element);
+                this._elements.forEach(function(element, index) {
+                    fun(element, index);
                 });
             };
 
