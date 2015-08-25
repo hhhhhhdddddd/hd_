@@ -8,7 +8,10 @@ HD_.TranslaterPanel = (function() {
                 right : "0px"
             }});
 
-            translater.eachElement(function(translation) {
+            translaterPanel._translater = translater;
+            translaterPanel._translationHandler = translationHandler;
+
+            translaterPanel._translater.eachElement(function(translation) {
                 var translationName = translation.getName();
                 var translationButton = HD_.PanelField.create({
                     name: translationName,
@@ -18,11 +21,17 @@ HD_.TranslaterPanel = (function() {
                     },
                     handler: function saveInputsHandler() {
                         var translationName = translationButton.getName();
-                        translationHandler(translationName);
+                        translaterPanel._translationHandler(translationName);
                     }
                 });
                 translaterPanel.pushPanelElement(translationButton);
             });
+
+            translaterPanel.addTranslaterPanel = function(parentDomNode) {
+                var translationsPanel = HD_.TranslaterPanel.create(this._translater, this._translationHandler);
+                var trDomNode = translationsPanel.buildDomNode();
+                parentDomNode.appendChild(trDomNode);
+            };
 
             return translaterPanel;
         }
