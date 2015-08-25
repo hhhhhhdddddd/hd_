@@ -39,7 +39,7 @@ HD_.TranslaterPanel = (function() {
         addTranslaterPanel : function(translater, panel, handler) {
             var translaterPanel = HD_.TranslaterPanel.create(translater, function translationHandler(translationName) {
 
-                function refreshFieldTexts(panel) {
+                function refreshFieldsTexts(panel) {
                     panel.mapPanels(function(pan) {
                         if (pan.refreshFieldTexts) {
                             pan.refreshFieldTexts();
@@ -48,7 +48,7 @@ HD_.TranslaterPanel = (function() {
                 }
 
                 translater.setCurrentTranlsation(translationName);
-                refreshFieldTexts(panel);
+                refreshFieldsTexts(panel);
             });
             var trDomNode = translaterPanel.buildDomNode();
             panel.getDomNode().appendChild(trDomNode);
