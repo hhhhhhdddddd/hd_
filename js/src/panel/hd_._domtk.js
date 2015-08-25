@@ -75,6 +75,8 @@ HD_._DomTk = (function() {
             this.appendDomElement(tableCell, domNode);
         },
 
+        // Tableau de div
+
         buildEmptyDivTable : function(rows, columns) {
             var table = this.createDomElement("div");
             for (var r = 0; r < rows; r++) {
