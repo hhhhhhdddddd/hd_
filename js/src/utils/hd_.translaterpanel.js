@@ -2,7 +2,11 @@ HD_.TranslaterPanel = (function() {
 
     return {
         create : function(translater, translationHandler) {
-            var translaterPanel = HD_.HorizontalPanel.create({name: "translater"});
+            var translaterPanel = HD_.HorizontalPanel.create({name: "translater", type: "table", style: {
+                position : "absolute",
+                top : "0px",
+                right : "0px"
+            }});
 
             translater.eachElement(function(translation) {
                 var translationName = translation.getName();

@@ -7,6 +7,33 @@ HD_._StackPanel = (function() {
             var stackPanel = Object.create(null);
             HD_._Panel.init(stackPanel, {name: options.name, className: direction + 'Panel', style: options.style});
 
+            if (options.type && (options.type === "table")) {
+                stackPanel.buildPanelEmptyTable = function() {
+                    return HD_._DomTk.buildEmptyTable(this.getNumberOfRows(), this.getNumberOfColumns());
+                };
+
+                stackPanel.setPanelTableCell = function(index, domNode) {
+                    HD_._DomTk.setDomTableCell(this._panelDomContent,this.getRowIndex(index) , this.getColumnIndex(index), domNode);
+                };
+
+                stackPanel.getPanelTableCell = function(index) {
+                    return HD_._DomTk.getDomTableCell(this._panelDomContent,this.getRowIndex(index) , this.getColumnIndex(index));
+                };
+            }
+            else {
+                stackPanel.buildPanelEmptyTable = function() {
+                    return HD_._DomTk.buildEmptyDivTable(this.getNumberOfRows(), this.getNumberOfColumns());
+                };
+
+                stackPanel.setPanelTableCell = function(index, domNode) {
+                    HD_._DomTk.setDivTableCell(this._panelDomContent,this.getRowIndex(index) , this.getColumnIndex(index), domNode);
+                };
+
+                stackPanel.getPanelTableCell = function(index) {
+                    return HD_._DomTk.getDivTableCell(this._panelDomContent,this.getRowIndex(index) , this.getColumnIndex(index));
+                };
+            }
+
             stackPanel._panelElements = [];
             stackPanel._cellsStyle = [];
 
@@ -134,18 +161,6 @@ HD_._StackPanel = (function() {
                         return res;
                     }
                 }
-            };
-
-            stackPanel.buildPanelEmptyTable = function() {
-                return HD_._DomTk.buildEmptyDivTable(this.getNumberOfRows(), this.getNumberOfColumns());
-            };
-
-            stackPanel.setPanelTableCell = function(index, domNode) {
-                HD_._DomTk.setDivTableCell(this._panelDomContent,this.getRowIndex(index) , this.getColumnIndex(index), domNode);
-            };
-
-            stackPanel.getPanelTableCell = function(index) {
-                return HD_._DomTk.getDivTableCell(this._panelDomContent,this.getRowIndex(index) , this.getColumnIndex(index));
             };
 
             return stackPanel;
