@@ -1,3 +1,6 @@
+/*
+Un panneau de traduction standard avec autant de bouton que de langage.
+*/
 HD_.TranslaterPanel = (function() {
 
     return {
