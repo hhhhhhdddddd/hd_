@@ -71,6 +71,21 @@ HD_.Translater = (function() {
             return translater;
         },
 
+        /*
+        Ajoute à l'application appObject un traducteur initialisé avec la langue de départ.
+        
+        appObject: l'application à laquelle on ajoute le traducteur
+        propName: nom du traducteur dans l'application
+        language: langage de départ
+        translationsKeys: id éléments à traduire
+        translationsArray: tableau contenant toutes les traductions
+        
+        Exemple d'appel:
+        HD_.Translater.setAppTrProperty(this, "tr", "fr", {key1:key1, key2:key2}, [
+            {name: "en", translations: {key1: "key 1", key2: "key 2"} },
+            {name: "fr", translations: {key1: "clé 1", key2: "clé 2"} },
+        ]);
+        */
         setAppTrProperty : function(appObject, propName, language, translationsKeys, translationsArray) {
             var translater = this.create();
             translationsArray.forEach(function(translation) { // translation == {name: str, translations: array}
