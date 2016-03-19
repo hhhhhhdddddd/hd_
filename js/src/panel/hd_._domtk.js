@@ -1,3 +1,6 @@
+/*
+DomTk = Dom toolkit. Des utilitaires pour la manipulation du DOM.
+*/
 HD_._DomTk = (function() {
 
     return {
