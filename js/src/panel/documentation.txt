@@ -1,0 +1,2 @@
+Voir le projet versed (commencer par versed.js) pour avoir un exemple d'utilisation des panneaux.
+Versed contient aussi un exemple de traduction.
