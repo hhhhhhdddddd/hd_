@@ -134,6 +134,12 @@ HD_.PanelField = (function() {
                     paragraph.innerHTML = line;
                     that._fieldDomNode.appendChild(paragraph);
                 });
+            },
+            addLine : function(str) {
+                var text = document.createTextNode(str);
+                this._fieldDomNode.appendChild(text);
+                var nl = document.createElement("br");
+                this._fieldDomNode.appendChild(nl);
             }
         },
 
