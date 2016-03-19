@@ -30,12 +30,6 @@ HD_.TranslaterPanel = (function() {
                 translaterPanel.pushPanelElement(translationButton);
             });
 
-            translaterPanel.addTranslaterPanel = function(parentDomNode) {
-                var translationsPanel = HD_.TranslaterPanel.create(this._translater, this._translationHandler);
-                var trDomNode = translationsPanel.buildDomNode();
-                parentDomNode.appendChild(trDomNode);
-            };
-
             return translaterPanel;
         },
 
