@@ -1,3 +1,8 @@
+/*
+Module chargé de gérer la traduction dans un application correctement interfacée.
+Interfaçage:
+
+*/
 HD_.Translater = (function() {
 
     function _createTranslation(name, translations) {
