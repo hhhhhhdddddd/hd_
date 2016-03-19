@@ -33,6 +33,7 @@ HD_.TranslaterPanel = (function() {
             return translaterPanel;
         },
 
+        // Ajoute à panel un panneau avec les boutons de traduction (autant de boutons que de traductions supportées)
         addTranslaterPanel : function(translater, panel, handler) {
             var translaterPanel = HD_.TranslaterPanel.create(translater, function translationHandler(translationName) {
 
