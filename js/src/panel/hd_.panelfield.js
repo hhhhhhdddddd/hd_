@@ -16,7 +16,7 @@ HD_.PanelField = (function() {
                 var labels = this._labelsBuilder();
                 values.forEach(function(value, index) {
                     option = document.createElement("option");
-                    option.setAttribute("value", value.value);
+                    option.setAttribute("value", value);
                     option.innerHTML = labels[index];
                     select.appendChild(option);
                 });
