@@ -49,15 +49,20 @@ HD_.PanelField = (function() {
             findDomValue : function() {
                 return _findHtmlInputValue(this._fieldDomNode);
             },
-            //Retrieve the first (and only!) File from the FileList object
-            change : function(evt, field) {
-                var f = evt.target.files[0];
-                if (f) {
-                    field.postChangeValue = f;
-                }
-                else {
-                    alert("Failed to load file");
-                }
+            addMandatoryEventListeners : function() {
+                var that = this;
+                that._panelDomContent.addEventListener("change", function(evt) {
+                    //Retrieve the first (and only!) File from the FileList object
+
+                    var f = evt.target.files[0];
+                    if (f) {
+                        that.postChangeValue = f;
+                    }
+                    else {
+                        alert("Failed to load file");
+                    }
+                },
+                false);
             },
             //http://www.htmlgoodies.com/beyond/javascript/read-text-files-using-the-javascript-filereader.html#fbid=uTCcfskrObx
             readFileAsText : function(onFileRead) {
@@ -234,16 +239,17 @@ HD_.PanelField = (function() {
                     that.setFieldContent(that._initValue);
                 }
 
+                // Gestion des écouteurs obligatoires
+                if (that.addMandatoryEventListeners) {
+                    that.addMandatoryEventListeners();
+                }
+
                 if (that._eventListeners) {
                     that._eventListeners.forEach(function(eventListener) {
-                        var listener = _types[that._type][eventListener.name];
-                        if (listener) {
-                            that._panelDomContent.addEventListener(eventListener.name, function(evt) {
-                                listener(evt, that);
-                                eventListener.handler(evt);
-                            },
-                            false);
-                        }
+                        that._panelDomContent.addEventListener(eventListener.name, function(evt) {
+                            eventListener.handler(evt);
+                        },
+                        false);
                     });
                 }
 
