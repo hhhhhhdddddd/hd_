@@ -239,11 +239,12 @@ HD_.PanelField = (function() {
                     that.setFieldContent(that._initValue);
                 }
 
-                // Gestion des écouteurs obligatoires
+                // Ajout des écouteurs obligatoires
                 if (that.addMandatoryEventListeners) {
                     that.addMandatoryEventListeners();
                 }
 
+                // Ajout des écouteurs de l'utilisateur
                 if (that._eventListeners) {
                     that._eventListeners.forEach(function(eventListener) {
                         that._panelDomContent.addEventListener(eventListener.name, function(evt) {
