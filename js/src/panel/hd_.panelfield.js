@@ -28,6 +28,9 @@ HD_.PanelField = (function() {
                     this._fieldDomNode.options[i].innerHTML = labels[i];
                 }
             },
+            getValue : function(i) {
+                return this._labelValuesBuilder()[i];
+            },
             multiLabels : true,
             multiLabelValues : true,
         },
